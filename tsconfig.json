@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES3",
+    "module": "commonjs",
+    "declaration": true,
+    "allowSyntheticDefaultImports": false,
+    "allowJs": false,
+    "outDir": "./lib",
+    "baseUrl": ".",
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "sourceMap": false,
+    "alwaysStrict": true,
+    "lib": [
+      "dom", "es6"
+    ]
+  },
+  "include": [
+    "src",
+    "typings"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "contacthub-connect-social",
+  "version": "1.0.0",
+  "main": "lib",
+  "repository": "git@github.com:contactlab/contacthub-connect-social.git",
+  "keywords": [
+    "contactlab",
+    "contacthub",
+    "form",
+    "autofill",
+    "fill"
+  ],
+  "files": [
+    "lib"
+  ],
+  "author": "Francesco Cioria <francesco@buildo.io>",
+  "license": "Apache",
+  "scripts": {
+    "test": "jest",
+    "test-dev": "jest --watch",
+    "build": "tsc && webpack --config webpack/webpack.config.build.ts",
+    "typecheck": "tsc --noEmit",
+    "preversion": "npm run test",
+    "prepublish": "npm run build"
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "skipBabel": true
+      }
+    },
+    "transform": {
+      "^.+\\.ts$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(.*[.](test))[.](ts)$",
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "json"
+    ]
+  },
+  "devDependencies": {
+    "@types/compression-webpack-plugin": "0.3.1",
+    "@types/jest": "20.0.7",
+    "@types/node": "8.0.24",
+    "@types/webpack": "3.0.10",
+    "compression-webpack-plugin": "^1.0.0",
+    "jest": "20.0.4",
+    "ts-jest": "20.0.10",
+    "ts-loader": "^2.3.3",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.4.2",
+    "webpack": "^3.5.5"
+  }
+}
