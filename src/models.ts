@@ -1,7 +1,7 @@
-export type SocialNetworksAppIds = {
+export type SocialNetworksClientIds = {
   facebook?: string,
   google?: string,
-  linkedIn?: string
+  linkedin?: string
 }
 
 export type FormOptions = {
@@ -13,6 +13,6 @@ export type FormOptions = {
 }
 
 export type Options = {
-  socialNetworksAppIds: SocialNetworksAppIds,
+  socialNetworksClientIds: SocialNetworksClientIds,
   form: FormOptions
 }

@@ -1,11 +1,30 @@
 import form from './form';
-import socialNetworks from './socialNetworks';
+import SocialNetworks from './socialNetworks';
 import { Options } from './models';
 
-module.exports = function SocialAutofill(options: Options) {
-  if (typeof options === 'undefined') {
-    throw new Error('"Social Autofill" must be initialized with some options');
+class SocialAutofill {
+  
+  SocialNetworks: SocialNetworks
+
+  constructor(options: Options) {
+    if (typeof options === 'undefined') {
+      throw new Error('"Social Autofill" must be initialized with some options');
+    }
+    this.SocialNetworks = new SocialNetworks(options.socialNetworksClientIds);
+    form(options.form);
   }
-  socialNetworks(options.socialNetworksAppIds);
-  form(options.form);
+
+  loginWithFacebook() {
+    this.SocialNetworks.loginWithFacebook();
+  }
+
+  loginWithGoogle() {
+    this.SocialNetworks.loginWithGoogle();
+  }
+
+  loginWithLinkedIn() {
+    this.SocialNetworks.loginWithLinkedIn();
+  }
 }
+
+module.exports = SocialAutofill;
