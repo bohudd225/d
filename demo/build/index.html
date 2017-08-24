@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/form.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/input.min.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form class="ui form">
+      <div class="field">
+        <label>First Name</label>
+        <input type="text" id="firstName" placeholder="First Name">
+      </div>
+      <div class="field">
+        <label>Last Name</label>
+        <input type="text" id="lastName" placeholder="Last Name">
+      </div>
+      <div class="field">
+        <label>Date of Birth</label>
+        <input type="text" id="dateOfBirth" placeholder="Date of Birth">
+      </div>
+      <button class="ui button" type="submit">Submit</button>
+    </form>
+
+    <!-- start: Add SocialAutofill -->
+    
+      <script
+        type='text/javascript'
+        src="demo.js"
+      ></script>
+    
+    <!-- end: Add SocialAutofill -->
+
+    <!-- start: Initialize SocialAutofill -->
+    <script>
+      window.SocialAutofill({
+        socialNetworksAppIds: {
+          facebook: 'facebook_app_id'
+        },
+        form: {
+          fields: {
+            firstName: '#firstName',
+            lastName: '#lastName',
+            dateOfBirth: '#dateOfBirth'
+          }
+        }
+      });
+    </script>
+    <!-- end: Initialize SocialAutofill -->
+  <script type="text/javascript" src="demo.js"></script></body>
+</html>

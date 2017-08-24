@@ -2,7 +2,8 @@ import * as path from 'path';
 
 export const paths = {
   SRC: path.resolve(__dirname, '../src'),
-  DIST: path.resolve(__dirname, '../dist')
+  DIST: path.resolve(__dirname, '../dist'),
+  DEMO: path.resolve(__dirname, '../demo')
 };
 
 export default {
