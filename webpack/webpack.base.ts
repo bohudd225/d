@@ -15,7 +15,7 @@ export default {
   },
 
   output: {
-    library: 'webclient' as 'webclient',
+    library: 'SocialAutofill',
     libraryTarget: 'var' as 'var',
     path: paths.DIST,
     filename: 'app.[hash].js'
