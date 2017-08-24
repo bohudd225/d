@@ -10,7 +10,7 @@ class SocialAutofill {
     if (typeof options === 'undefined') {
       throw new Error('"Social Autofill" must be initialized with some options');
     }
-    this.SocialNetworks = new SocialNetworks(options.socialNetworksClientIds);
+    this.SocialNetworks = new SocialNetworks(options.clientIds);
     form(options.form);
   }
 

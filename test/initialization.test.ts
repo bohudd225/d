@@ -8,7 +8,7 @@ describe('Initialization', () => {
   });
 
   it('don\'t throw any error if called with correct options', () => {
-    expect(() => new SocialAutofill({ socialNetworksAppIds: { facebook: '123456' }, form: { fields: {} } })).not.toThrow()
+    expect(() => new SocialAutofill({ clientIds: { facebook: '123456' }, form: { fields: {} } })).not.toThrow()
   });
 
 });

@@ -13,6 +13,6 @@ export type FormOptions = {
 }
 
 export type Options = {
-  socialNetworksClientIds: SocialNetworksClientIds,
+  clientIds: SocialNetworksClientIds,
   form: FormOptions
 }
