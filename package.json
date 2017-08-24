@@ -56,5 +56,9 @@
     "typescript": "^2.4.2",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1"
+  },
+  "dependencies": {
+    "@types/hellojs": "1.15.0",
+    "hellojs": "^1.15.1"
   }
 }
