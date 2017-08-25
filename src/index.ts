@@ -4,26 +4,26 @@ import { Options } from './models';
 
 class SocialAutofill {
   
-  SocialNetworks: SocialNetworks
+  socialNetworks: SocialNetworks
 
   constructor(options: Options) {
     if (typeof options === 'undefined') {
       throw new Error('"Social Autofill" must be initialized with some options');
     }
-    this.SocialNetworks = new SocialNetworks(options.clientIds);
+    this.socialNetworks = new SocialNetworks(options.clientIds);
     form(options.form);
   }
 
   loginWithFacebook() {
-    this.SocialNetworks.loginWithFacebook();
+    this.socialNetworks.loginWithFacebook();
   }
 
   loginWithGoogle() {
-    this.SocialNetworks.loginWithGoogle();
+    this.socialNetworks.loginWithGoogle();
   }
 
   loginWithLinkedIn() {
-    this.SocialNetworks.loginWithLinkedIn();
+    this.socialNetworks.loginWithLinkedIn();
   }
 }
 
