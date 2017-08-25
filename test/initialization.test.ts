@@ -1,9 +1,9 @@
-const SocialAutofill = require('../src');
+import SocialAutofill from '../src/SocialAutofill';
 
 describe('Initialization', () => {
 
   it('should throw error if called without options', () => {
-
+    // test for JS-runtime
     expect(() => new SocialAutofill()).toThrow('"Social Autofill" must be initialized with some options')
   });
 
