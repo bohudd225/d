@@ -1,6 +1,7 @@
 import hello from '../vendor/hello';
 import injectLinkedInSDK from '../vendor/injectLinkedInSDK';
 import { SocialNetworksClientIds, FacebookFields, FacebookUser } from '../models';
+import { getUserFromFacebookUser } from '../userConverters';
 
 export default class SocialNetworks {
 
@@ -23,8 +24,12 @@ export default class SocialNetworks {
     const fields: FacebookFields[] = ['first_name', 'last_name', 'gender', 'birthday', 'link', 'email'];
 
     Facebook.login().then(() => {
-      Facebook.api('me', { fields }).then((json: FacebookUser) => {
-        console.log(json);
+      Facebook.api('me', { fields }).then((facebookUser: FacebookUser) => {
+        console.log(facebookUser);
+
+        const user = getUserFromFacebookUser(facebookUser);
+
+        console.log(user);
       }, e => {
         alert('Whoops! ' + e.error.message);
       });

@@ -1,2 +1,2 @@
-export { CustomerData, ContactHubSDKBrowser } from './contacthub-sdk-browser';
+export { ContactHubSDKBrowser } from './contacthub-sdk-browser';
 export * from './models';
