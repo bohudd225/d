@@ -51,6 +51,18 @@ export default class SocialNetworks {
     if (typeof this.clientIds.linkedin !== 'string') {
       throw new Error('The provided client id for LinkedIn is invalid');
     }
+
+    const LinkedIn = hello('linkedin');
+
+    LinkedIn.login().then(() => {
+      LinkedIn.api('me').then((json) => {
+        console.log(json);
+      }, e => {
+        alert('Whoops! ' + e.error.message);
+      });
+    }, e => {
+      console.error(e)
+    });
   }
 
 }
