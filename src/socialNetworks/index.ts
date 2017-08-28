@@ -33,6 +33,18 @@ export default class SocialNetworks {
     if (typeof this.clientIds.google !== 'string') {
       throw new Error('The provided client id for Google is invalid');
     }
+
+    const Google = hello('google');
+
+    Google.login().then(() => {
+      Google.api('me').then((json) => {
+        console.log(json);
+      }, e => {
+        alert('Whoops! ' + e.error.message);
+      });
+    }, e => {
+      console.error(e)
+    });
   }
 
   loginWithLinkedIn() {
