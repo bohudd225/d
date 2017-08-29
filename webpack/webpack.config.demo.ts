@@ -3,18 +3,13 @@ import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpackBase, { paths } from './webpack.base';
 
 export default {
-  
+
   ...webpackBase,
 
   output: {
     ...webpackBase.output,
     path: `${paths.DEMO}/build`,
     filename: 'demo.js'
-  },
-
-  resolve: {
-    modules: ['node_modules'],
-    extensions: ['.ts', '.js']
   },
 
   devServer: {

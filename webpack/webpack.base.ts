@@ -12,7 +12,7 @@ export default {
 
   resolve: {
     modules: ['node_modules'],
-    extensions: ['.ts']
+    extensions: ['.ts', '.js']
   },
 
   output: {
