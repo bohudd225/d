@@ -22,7 +22,9 @@
         <label>Date of Birth</label>
         <input type="text" id="dateOfBirth" placeholder="Date of Birth">
       </div>
-      <button class="ui button" type="submit">Submit</button>
+      <button type="button" class="ui button" onclick="socialAutofill.loginWithFacebook()">Login with Facebook</button>
+      <button type="button" class="ui button" onclick="socialAutofill.loginWithGoogle()">Login with Google</button>
+      <button type="button" class="ui button" onclick="socialAutofill.loginWithLinkedIn()">Login with LinkedIn</button>
     </form>
 
     <!-- start: Add SocialAutofill -->
@@ -36,9 +38,11 @@
 
     <!-- start: Initialize SocialAutofill -->
     <script>
-      window.SocialAutofill({
-        socialNetworksAppIds: {
-          facebook: 'facebook_app_id'
+      var socialAutofill = new window.SocialAutofill({
+        clientIds: {
+          facebook: '1882104035447885',
+          google: '795655891034-5tou4pabjpdjdcmunv1970ujkuqggj7m.apps.googleusercontent.com',
+          linkedin: '778rorytckysk3'
         },
         form: {
           fields: {
