@@ -24,7 +24,7 @@ export default class SocialNetworks {
     const fields: FacebookFields[] = ['first_name', 'last_name', 'gender', 'birthday', 'link', 'email'];
 
     return new Promise((resolve, reject) => {
-      Facebook.login().then(() => {
+      Facebook.login({ scope: 'email' }).then(() => {
         Facebook.api('me', { fields }).then((facebookUser: FacebookUser) => {
           try {
             const user = getUserFromFacebookUser(facebookUser);
@@ -45,7 +45,7 @@ export default class SocialNetworks {
     const Google = hello('google');
 
     return new Promise((resolve, reject) => {
-      Google.login().then(() => {
+      Google.login({ scope: 'email' }).then(() => {
         Google.api('me').then((googleUser: GoogleUser) => {
           try {
             const user = getUserFromGoogleUser(googleUser);

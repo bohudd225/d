@@ -14,6 +14,9 @@ export function getUserFromFacebookUser(facebookUser: FacebookUser): User {
       pictureUrl: facebookUser.picture,
       dob: facebookUser.birthday,
       gender: facebookUser.gender,
+      contacts: {
+        email: facebookUser.email
+      },
       socialProfile: {
         facebook: facebookUser.link
       }
@@ -30,6 +33,9 @@ export function getUserFromGoogleUser(googleUser: GoogleUser): User {
       pictureUrl: googleUser.picture,
       dob: googleUser.birthday,
       gender: googleUser.gender,
+      contacts: {
+        email: googleUser.email
+      },
       socialProfile: {
         google: googleUser.url
       }
@@ -46,6 +52,9 @@ export function getUserFromLinkedInUser(linkedInUser: LinkedInUser): User {
       pictureUrl: linkedInUser.pictureUrl,
       dob: undefined, // not exposed by LinkedIn API
       gender: undefined, // not exposed by LinkedIn API
+      contacts: {
+        email: linkedInUser.emailAddress
+      },
       socialProfile: {
         linkedin: linkedInUser.publicProfileUrl
       }

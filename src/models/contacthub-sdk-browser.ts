@@ -44,7 +44,7 @@ export type CustomerTags = {
 };
 
 export type CustomerContacts = {
-  email?: string,
+  email: string,
   fax?: string,
   mobilePhone?: string,
   phone?: string,
@@ -91,7 +91,7 @@ export type CustomerBase = {
   dob?: string,
   locale?: string,
   timezone?: string,
-  contacts?: CustomerContacts,
+  contacts: CustomerContacts,
   address?: CustomerAddress,
   credential?: CustomerCredential,
   educations?: string,

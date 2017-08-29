@@ -30,7 +30,8 @@ export interface HelloUser {
   last_name: string,
   name: string,
   picture: string,
-  thumbnail: string
+  thumbnail: string,
+  email: string
 }
 
 export type FacebookFields = 'id' | 'first_name' | 'last_name' | 'gender' | 'birthday' | 'link' | 'email';
@@ -123,5 +124,6 @@ export type LinkedInUser = {
   lastName: string,
   formattedName: string,
   pictureUrl: string,
-  publicProfileUrl: string
+  publicProfileUrl: string,
+  emailAddress: string
 }
