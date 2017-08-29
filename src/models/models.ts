@@ -111,3 +111,16 @@ export interface GoogleUser extends HelloUser {
   };
   domain: string;
 }
+
+/*
+  cherry-picked the keys we use from docs here: https://developer.linkedin.com/docs/fields/basic-profile
+  note: linkedin sdk (apparently) converts each key to camelCase
+*/
+export type LinkedInUser = {
+  id: string,
+  firstName: string,
+  lastName: string,
+  formattedName: string,
+  pictureUrl: string,
+  publicProfileUrl: string
+}

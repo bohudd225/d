@@ -1,6 +1,7 @@
 import {
   FacebookUser,
   GoogleUser,
+  LinkedInUser,
   User
 } from '../models';
 
@@ -31,6 +32,22 @@ export function getUserFromGoogleUser(googleUser: GoogleUser): User {
       gender: googleUser.gender,
       socialProfile: {
         google: googleUser.url
+      }
+    }
+  }
+}
+
+export function getUserFromLinkedInUser(linkedInUser: LinkedInUser): User {
+  return {
+    id: linkedInUser.id,
+    base: {
+      firstName: linkedInUser.firstName,
+      lastName: linkedInUser.lastName,
+      pictureUrl: linkedInUser.pictureUrl,
+      dob: undefined, // not exposed by LinkedIn API
+      gender: undefined, // not exposed by LinkedIn API
+      socialProfile: {
+        linkedin: linkedInUser.publicProfileUrl
       }
     }
   }

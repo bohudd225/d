@@ -1,7 +1,7 @@
 import hello from '../vendor/hello';
 import injectLinkedInSDK from '../vendor/injectLinkedInSDK';
-import { SocialNetworksClientIds, FacebookFields, FacebookUser, GoogleUser } from '../models';
-import { getUserFromFacebookUser, getUserFromGoogleUser } from '../userConverters';
+import { SocialNetworksClientIds, FacebookFields, FacebookUser, GoogleUser, LinkedInUser } from '../models';
+import { getUserFromFacebookUser, getUserFromGoogleUser, getUserFromLinkedInUser } from '../userConverters';
 
 export default class SocialNetworks {
 
@@ -71,11 +71,15 @@ export default class SocialNetworks {
     const onLogin = () => {
       LinkedIn.API
         .Raw()
-        .url('/people/~:(picture-url,first-name,last-name,id,formatted-name,email-address)')
+        .url('/people/~:(picture-url,first-name,last-name,id,formatted-name,email-address,public-profile-url)')
         .method('GET')
         .body()
-        .result((x: any) => {
-          console.log(x);
+        .result((linkedInUser: LinkedInUser) => {
+          console.log(linkedInUser);
+
+          const user = getUserFromLinkedInUser(linkedInUser);
+
+          console.log(user);
         });
     }
 
