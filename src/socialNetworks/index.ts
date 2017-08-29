@@ -1,7 +1,7 @@
 import hello from '../vendor/hello';
 import injectLinkedInSDK from '../vendor/injectLinkedInSDK';
-import { SocialNetworksClientIds, FacebookFields, FacebookUser } from '../models';
-import { getUserFromFacebookUser } from '../userConverters';
+import { SocialNetworksClientIds, FacebookFields, FacebookUser, GoogleUser } from '../models';
+import { getUserFromFacebookUser, getUserFromGoogleUser } from '../userConverters';
 
 export default class SocialNetworks {
 
@@ -47,8 +47,12 @@ export default class SocialNetworks {
     const Google = hello('google');
 
     Google.login().then(() => {
-      Google.api('me').then((json) => {
-        console.log(json);
+      Google.api('me').then((googleUser: GoogleUser) => {
+        console.log(googleUser);
+
+        const user = getUserFromGoogleUser(googleUser);
+
+        console.log(user)
       }, e => {
         alert('Whoops! ' + e.error.message);
       });
