@@ -1,5 +1,5 @@
 import FbGraphApi from './facebook-api';
-import { CustomerData } from './contacthub-sdk-browser';
+import { CustomerData, ContactHubSDKBrowser } from './contacthub-sdk-browser';
 
 export type SocialNetworksClientIds = {
   facebook?: string,
@@ -19,6 +19,7 @@ export type FormOptions = {
 
 export type Options = {
   clientIds: SocialNetworksClientIds,
+  contacthub: ContactHubSDKBrowser,
   form: FormOptions
 }
 

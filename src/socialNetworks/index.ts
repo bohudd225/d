@@ -1,6 +1,6 @@
 import hello from '../vendor/hello';
 import injectLinkedInSDK from '../vendor/injectLinkedInSDK';
-import { SocialNetworksClientIds, FacebookFields, FacebookUser, GoogleUser, LinkedInUser } from '../models';
+import { SocialNetworksClientIds, FacebookFields, FacebookUser, GoogleUser, LinkedInUser, User } from '../models';
 import { getUserFromFacebookUser, getUserFromGoogleUser, getUserFromLinkedInUser } from '../userConverters';
 
 export default class SocialNetworks {
@@ -15,7 +15,7 @@ export default class SocialNetworks {
     this.clientIds = clientIds;
   }
 
-  loginWithFacebook() {
+  loginWithFacebook(): Promise<User> {
     if (typeof this.clientIds.facebook !== 'string') {
       throw new Error('The provided client id for Facebook is invalid');
     }
@@ -23,20 +23,18 @@ export default class SocialNetworks {
     const Facebook = hello('facebook');
     const fields: FacebookFields[] = ['first_name', 'last_name', 'gender', 'birthday', 'link', 'email'];
 
-    Facebook.login().then(() => {
-      Facebook.api('me', { fields }).then((facebookUser: FacebookUser) => {
-        console.log(facebookUser);
-
-        const user = getUserFromFacebookUser(facebookUser);
-
-        console.log(user);
-      }, e => {
-        alert('Whoops! ' + e.error.message);
-      });
-    }, e => {
-      console.error(e)
+    return new Promise((resolve, reject) => {
+      Facebook.login().then(() => {
+        Facebook.api('me', { fields }).then((facebookUser: FacebookUser) => {
+          try {
+            const user = getUserFromFacebookUser(facebookUser);
+            resolve(user);
+          } catch (e) {
+            reject(e);
+          }
+        }, reject);
+      }, reject);
     });
-
   }
 
   loginWithGoogle() {
@@ -46,18 +44,17 @@ export default class SocialNetworks {
 
     const Google = hello('google');
 
-    Google.login().then(() => {
-      Google.api('me').then((googleUser: GoogleUser) => {
-        console.log(googleUser);
-
-        const user = getUserFromGoogleUser(googleUser);
-
-        console.log(user)
-      }, e => {
-        alert('Whoops! ' + e.error.message);
-      });
-    }, e => {
-      console.error(e)
+    return new Promise((resolve, reject) => {
+      Google.login().then(() => {
+        Google.api('me').then((googleUser: GoogleUser) => {
+          try {
+            const user = getUserFromGoogleUser(googleUser);
+            resolve(user);
+          } catch (e) {
+            reject(e);
+          }
+        }, reject);
+      }, reject);
     });
   }
 
@@ -68,22 +65,20 @@ export default class SocialNetworks {
 
     const LinkedIn = (window as any).IN;
 
-    const onLogin = () => {
-      LinkedIn.API
-        .Raw()
-        .url('/people/~:(picture-url,first-name,last-name,id,formatted-name,email-address,public-profile-url)')
-        .method('GET')
-        .body()
-        .result((linkedInUser: LinkedInUser) => {
-          console.log(linkedInUser);
+    return new Promise((resolve) => {
+      const onLogin = () => {
+        LinkedIn.API
+          .Raw()
+          .url('/people/~:(picture-url,first-name,last-name,id,formatted-name,email-address,public-profile-url)')
+          .method('GET')
+          .body()
+          .result((linkedInUser: LinkedInUser) => {
+            resolve(getUserFromLinkedInUser(linkedInUser));
+          });
+      }
 
-          const user = getUserFromLinkedInUser(linkedInUser);
-
-          console.log(user);
-        });
-    }
-
-    LinkedIn.User.authorize(onLogin);
+      LinkedIn.User.authorize(onLogin);
+    });
   }
 
 }
