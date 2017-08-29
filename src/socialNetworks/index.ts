@@ -1,4 +1,4 @@
-import * as hello from 'hellojs';
+import hello from '../vendor/hello';
 import injectLinkedInSDK from '../vendor/injectLinkedInSDK';
 import { SocialNetworksClientIds } from '../models';
 
