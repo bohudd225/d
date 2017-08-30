@@ -1,6 +1,6 @@
 import * as t from 'tcomb';
 import FbGraphApi from './facebook-api';
-import { CustomerData, ContactHubSDKBrowser } from './contacthub-sdk-browser';
+import { CustomerBase, CustomerSocial, CustomerContacts, ContactHubSDKBrowser } from './contacthub-sdk-browser';
 
 export type SocialNetworksClientIds = {
   facebook?: string,
@@ -10,12 +10,16 @@ export type SocialNetworksClientIds = {
 
 export type SocialNetworks = keyof SocialNetworksClientIds
 
+export type Fields = {
+  firstName?: string,
+  lastName?: string,
+  dateOfBirth?: string,
+  email?: string,
+  gender?: string
+}
+
 export type FormOptions = {
-  fields: {
-    firstName?: string,
-    lastName?: string,
-    dateOfBirth?: string
-  }
+  fields: Fields
 }
 
 export type Options = {
@@ -36,12 +40,20 @@ export const Options = t.interface({
     fields: t.interface({
       firstName: t.maybe(t.String),
       lastName: t.maybe(t.String),
-      dateOfBirth: t.maybe(t.String)
+      dateOfBirth: t.maybe(t.String),
+      email: t.maybe(t.String),
+      gender: t.maybe(t.String)
     }, { strict: true })
   }, { strict: true })
 }, { strict: true, name: '"SocialAutofill"' });
 
-export type User = CustomerData;
+export type User = {
+  externalId: string,
+  base: CustomerBase & {
+    contacts: CustomerContacts,
+    socialProfile: CustomerSocial
+  }
+}
 
 export interface HelloUser {
   first_name: string,
