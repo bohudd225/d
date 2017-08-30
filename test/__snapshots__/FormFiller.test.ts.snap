@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormFiller class "fillFormWithUserData" should fill the given fields with the relative user data 1`] = `
+"
+      <form class=\\"ui form\\">
+        <input id=\\"firstName\\">
+        <input id=\\"lastName\\">
+        <input id=\\"gender\\">
+        <input id=\\"email\\">
+        <input id=\\"dateOfBirth\\">
+      </form>"
+`;

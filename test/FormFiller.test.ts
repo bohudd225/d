@@ -53,6 +53,7 @@ describe('FormFiller class', () => {
     expect(getInputValueById('gender')).toBe(user.base.gender);
     expect(getInputValueById('email')).toBe(user.base.contacts.email);
     expect(getInputValueById('dateOfBirth')).toBe(user.base.dob);
+    expect(document.body.innerHTML).toMatchSnapshot();
   });
 
 });
