@@ -1,3 +1,4 @@
+import * as t from 'tcomb';
 import FbGraphApi from './facebook-api';
 import { CustomerData, ContactHubSDKBrowser } from './contacthub-sdk-browser';
 
@@ -22,6 +23,23 @@ export type Options = {
   contacthub: ContactHubSDKBrowser,
   form: FormOptions
 }
+
+// tcomb version of Options to validate at run-time
+export const Options = t.interface({
+  clientIds: t.interface({
+    facebook: t.maybe(t.String),
+    google: t.maybe(t.String),
+    linkedin: t.maybe(t.String)
+  }, { strict: true }),
+  contacthub: t.Function,
+  form: t.interface({
+    fields: t.interface({
+      firstName: t.maybe(t.String),
+      lastName: t.maybe(t.String),
+      dateOfBirth: t.maybe(t.String)
+    }, { strict: true })
+  }, { strict: true })
+}, { strict: true, name: '"SocialAutofill"' });
 
 export type User = CustomerData;
 

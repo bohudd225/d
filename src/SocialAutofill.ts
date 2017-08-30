@@ -11,6 +11,10 @@ export default class SocialAutofill {
     if (typeof options === 'undefined') {
       throw new Error('"Social Autofill" must be initialized with some options');
     }
+
+    // fully validate "options" with tcomb
+    Options(options as any);
+
     this.socialNetworks = new SocialNetworks(options.clientIds);
     this.contacthub = options.contacthub;
     form(options.form);
