@@ -38,7 +38,7 @@ export default class SocialNetworks {
     });
   }
 
-  loginWithGoogle() {
+  loginWithGoogle(): Promise<User> {
     if (typeof this.clientIds.google !== 'string') {
       throw new Error('The provided client id for Google is invalid');
     }
@@ -59,7 +59,7 @@ export default class SocialNetworks {
     });
   }
 
-  loginWithLinkedIn() {
+  loginWithLinkedIn(): Promise<User> {
     if (typeof this.clientIds.linkedin !== 'string') {
       throw new Error('The provided client id for LinkedIn is invalid');
     }
