@@ -4,7 +4,7 @@
 1. Fill a sign-up form with information from one of these three major social networks: Facebook, Google, LinkedIn
 2. Send the user's data to your ContacthHub account
 
-# How to use
+## How to use
 
 Insert this snippet in your website (preferably in the <HEAD> section):
 
