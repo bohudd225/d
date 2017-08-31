@@ -47,12 +47,12 @@ We recommend that you load libraries from the CDN via HTTPS, even if your own we
 
 ### Initialization of ContacthubConnectSocial object
 
-The first script of the snippet above will add a `ContacthubConnectSocial` class to the global `window` object of you page.
+The first script of the snippet above will add a `ContacthubConnectSocial` class to the global `window` object of your page.
 To enable `ContacthubConnectSocial`, you have to create an instance of it with the right configuration which consists of:
 
 #### `clientIds`
 
-`ContacthubConnectSocial` needs the client ids of your Facebook, Google and LinkedIn apps:
+`ContacthubConnectSocial`, to let the users login with their favourite social networks, needs the client ids of your Facebook, Google and LinkedIn apps:
 
 ```js
 var connectSocial = new window.ContacthubConnectSocial({
@@ -78,7 +78,7 @@ var connectSocial = new window.ContacthubConnectSocial({
 
 #### `contacthub`
 
-`ContacthubConnectSocial` uses the official `[contacthub-sdk-browser](https://github.com/contactlab/contacthub-sdk-browser)` to post the collected user data to the Contacthub API.
+`ContacthubConnectSocial` uses the official [`contacthub-sdk-browser`](https://github.com/contactlab/contacthub-sdk-browser)`to post the collected user data to the Contacthub API.
 
 To avoid downloading the `contacthub-sdk-browser` JS files multiple times, as your page will probably already have one, `ContacthubConnectSocial` requires you to directly pass the instance of the sdk during the initialization:
 
@@ -91,7 +91,7 @@ var connectSocial = new window.ContacthubConnectSocial({
 });
 ```
 
-For more information about the `contacthub-sdk-browser` refer to `[contacthub-sdk-browser#how-to-use](https://github.com/contactlab/contacthub-sdk-browser#how-to-use)`.
+For more information about the `contacthub-sdk-browser` refer to [`contacthub-sdk-browser#how-to-use`](https://github.com/contactlab/contacthub-sdk-browser#how-to-use).
 
 #### `form`
 
