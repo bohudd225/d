@@ -18,7 +18,8 @@
     <script src='https://assets.contactlab.it/contacthub/sdk-browser/latest/contacthub.min.js'></script>
   </head>
   <body>
-    <form class="ui form">
+    <form class="ui form" id="form">
+      <div id="icons-container"></div>
       <div class="field">
         <label>First Name</label>
         <input type="text" id="firstName" placeholder="First Name">
@@ -63,6 +64,9 @@
         },
         contacthub: window.ch,
         autofillOptions: {
+          icons: {
+            container: '#icons-container'
+          },
           fields: {
             firstName: '#firstName',
             lastName: '#lastName',
