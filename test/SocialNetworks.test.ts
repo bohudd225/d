@@ -26,4 +26,49 @@ describe('SocialNetworks class', () => {
     expect(clientIds).toEqual(socialAutofill.clientIds);
   });
 
+  it('loginWithFacebook should return a rejected Promise if the required clientId is invalid', () => new Promise((resolve, reject) => {
+    const expectedError = 'The provided client id for Facebook is invalid';
+    const socialAutofill = new SocialNetworks({});
+
+    socialAutofill.loginWithFacebook()
+      .then(() => reject())
+      .catch((e) => {
+        if (e === expectedError) {
+          resolve();
+        } else {
+          reject(`${e} !== ${expectedError}`);
+        }
+      });
+  }));
+
+  it('loginWithGoogle should return a rejected Promise if the required clientId is invalid', () => new Promise((resolve, reject) => {
+    const expectedError = 'The provided client id for Google is invalid';
+    const socialAutofill = new SocialNetworks({});
+
+    socialAutofill.loginWithGoogle()
+      .then(() => reject())
+      .catch((e) => {
+        if (e === expectedError) {
+          resolve();
+        } else {
+          reject(`${e} !== ${expectedError}`);
+        }
+      });
+  }));
+
+  it('loginWithLinkedIn should return a rejected Promise if the required clientId is invalid', () => new Promise((resolve, reject) => {
+    const expectedError = 'The provided client id for LinkedIn is invalid';
+    const socialAutofill = new SocialNetworks({});
+
+    socialAutofill.loginWithLinkedIn()
+      .then(() => reject())
+      .catch((e) => {
+        if (e === expectedError) {
+          resolve();
+        } else {
+          reject(`${e} !== ${expectedError}`);
+        }
+      });
+  }));
+
 });
