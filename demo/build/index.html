@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/form.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/input.min.css" />
     <link rel="stylesheet" href="style.css" />
-    <script>
+    <script type="text/javascript">
       window.ch=function(){(ch.q=ch.q||[]).push(arguments)};
       ch('config', {
         token: "CONTACTHUB_TOKEN",
@@ -15,7 +15,15 @@
         nodeId: "CONTACTHUB_NODE_ID"
       });
     </script>
-    <script src='https://assets.contactlab.it/contacthub/sdk-browser/latest/contacthub.min.js'></script>
+    <script type="text/javascript" src='https://assets.contactlab.it/contacthub/sdk-browser/latest/contacthub.min.js'></script>
+    <!-- start: Add ContacthubConnectSocial -->
+    
+      <script
+        type='text/javascript'
+        src="demo.js"
+      ></script>
+    
+    <!-- end: Add ContacthubConnectSocial -->
   </head>
   <body>
     <form class="ui form" id="form">
@@ -40,23 +48,14 @@
         <label>Date of Birth</label>
         <input type="text" id="dateOfBirth" placeholder="Date of Birth">
       </div>
-      <button type="button" class="ui button" onclick="socialAutofill.loginWithFacebook()">Login with Facebook</button>
-      <button type="button" class="ui button" onclick="socialAutofill.loginWithGoogle()">Login with Google</button>
-      <button type="button" class="ui button" onclick="socialAutofill.loginWithLinkedIn()">Login with LinkedIn</button>
+      <button type="button" class="ui button" onclick="contacthubConnectSocial.loginWithFacebook()">Login with Facebook</button>
+      <button type="button" class="ui button" onclick="contacthubConnectSocial.loginWithGoogle()">Login with Google</button>
+      <button type="button" class="ui button" onclick="contacthubConnectSocial.loginWithLinkedIn()">Login with LinkedIn</button>
     </form>
 
-    <!-- start: Add SocialAutofill -->
-    
-      <script
-        type='text/javascript'
-        src="demo.js"
-      ></script>
-    
-    <!-- end: Add SocialAutofill -->
-
-    <!-- start: Initialize SocialAutofill -->
-    <script>
-      var socialAutofill = new window.SocialAutofill({
+    <!-- start: Initialize ContacthubConnectSocial -->
+    <script type="text/javascript">
+      var contacthubConnectSocial = new window.ContacthubConnectSocial({
         clientIds: {
           facebook: '1882104035447885',
           google: '795655891034-5tou4pabjpdjdcmunv1970ujkuqggj7m.apps.googleusercontent.com',
@@ -77,6 +76,6 @@
         }
       });
     </script>
-    <!-- end: Initialize SocialAutofill -->
+    <!-- end: Initialize ContacthubConnectSocial -->
   <script type="text/javascript" src="demo.js"></script></body>
 </html>
