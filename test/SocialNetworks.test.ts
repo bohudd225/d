@@ -22,15 +22,15 @@ describe('SocialNetworks class', () => {
       google: 'google_client_id',
       linkedin: 'linkedin_client_id'
     };
-    const socialAutofill = new SocialNetworks(clientIds);
-    expect(clientIds).toEqual(socialAutofill.clientIds);
+    const socialNetworks = new SocialNetworks(clientIds);
+    expect(clientIds).toEqual(socialNetworks.clientIds);
   });
 
   it('loginWithFacebook should return a rejected Promise if the required clientId is invalid', () => new Promise((resolve, reject) => {
     const expectedError = 'The provided client id for Facebook is invalid';
-    const socialAutofill = new SocialNetworks({});
+    const socialNetworks = new SocialNetworks({});
 
-    socialAutofill.loginWithFacebook()
+    socialNetworks.loginWithFacebook()
       .then(() => reject())
       .catch((e) => {
         if (e === expectedError) {
@@ -43,9 +43,9 @@ describe('SocialNetworks class', () => {
 
   it('loginWithGoogle should return a rejected Promise if the required clientId is invalid', () => new Promise((resolve, reject) => {
     const expectedError = 'The provided client id for Google is invalid';
-    const socialAutofill = new SocialNetworks({});
+    const socialNetworks = new SocialNetworks({});
 
-    socialAutofill.loginWithGoogle()
+    socialNetworks.loginWithGoogle()
       .then(() => reject())
       .catch((e) => {
         if (e === expectedError) {
@@ -58,9 +58,9 @@ describe('SocialNetworks class', () => {
 
   it('loginWithLinkedIn should return a rejected Promise if the required clientId is invalid', () => new Promise((resolve, reject) => {
     const expectedError = 'The provided client id for LinkedIn is invalid';
-    const socialAutofill = new SocialNetworks({});
+    const socialNetworks = new SocialNetworks({});
 
-    socialAutofill.loginWithLinkedIn()
+    socialNetworks.loginWithLinkedIn()
       .then(() => reject())
       .catch((e) => {
         if (e === expectedError) {

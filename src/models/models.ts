@@ -53,7 +53,7 @@ export const Options = t.interface({
       gender: t.maybe(t.String)
     }, { strict: true })
   }, { strict: true })
-}, { strict: true, name: '"SocialAutofill"' });
+}, { strict: true, name: '"ContacthubConnectSocial"' });
 
 export type User = {
   base: CustomerBase & {
