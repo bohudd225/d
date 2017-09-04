@@ -93,7 +93,7 @@ var connectSocial = new window.ContacthubConnectSocial({
 
 For more information about the `contacthub-sdk-browser` refer to [`contacthub-sdk-browser#how-to-use`](https://github.com/contactlab/contacthub-sdk-browser#how-to-use).
 
-#### `form`
+#### `autofillOptions.fields`
 
 `ContacthubConnectSocial` will automatically fill your sign up form with the user's data retrieved from one of the supported social networks.
 
@@ -110,10 +110,8 @@ Any field **must** be a simple text field such as `<input type="text">` or a `<t
 `ContacthubConnectSocial` does not support complex `input`s such as `<input type="date">`
 
 ```js
-// let's say you stored the `contacthub-sdk-browser` in your page as `window.ch` (which is the default)
-
 var connectSocial = new window.ContacthubConnectSocial({
-  form: {
+  autofillOptions: {
     fields: {
       firstName: '#firstName', // CSS selector to the "first name" input field of your sign up form
       lastName: '#lastName', // CSS selector to the "last name" input field of your sign up form
@@ -125,3 +123,45 @@ var connectSocial = new window.ContacthubConnectSocial({
   ...
 });
 ```
+
+#### `autofillOptions.icons`
+
+`ContacthubConnectSocial` can automatically add the icons of Facebook, Google and LinkedIn to a container of your choice. This feature is optional.
+
+To activate it, you can simply pass the CSS selector of the container where you want `ContacthubConnectSocial` to append the icons:
+
+```js
+var connectSocial = new window.ContacthubConnectSocial({
+  autofillOptions: {
+    icons: {
+      container: '#icons-container'
+    },
+    ...
+  }
+  ...
+});
+```
+
+NOTE: `ContacthubConnectSocial` will only add the icons of the enabled social networks.
+
+## Contributing to this library
+
+### Getting started
+
+1. Clone this repo to a floder of your choice
+2. run `yarn` from inside the cloned repository (if you don't have `yarn` you can install by running `npm i -g yarn`)
+
+### How to build locally
+
+`npm run build` will generate `dist/contactlab.js` and `dist/contactlab.min.js`.
+
+
+### How to run tests
+
+`npm test` will run all tests once using Jest and WebdriverIO
+
+`npm test-dev` will automatically re-run tests using Jest and WebdriverIO on every change
+
+### How to open the demo page in your browser
+
+`npm start` will run a webpack process and serve the demo at `http://localhost:8080`
