@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { FormFiller } from './form';
+import { FormFiller, addSocialIconsToForm } from './autofill';
 import SocialNetworks from './socialNetworks';
 import { Options, ContactHubSDKBrowser, User } from './models';
 
@@ -20,6 +20,10 @@ export default class SocialAutofill {
     this.socialNetworks = new SocialNetworks(options.clientIds);
     this.contacthub = options.contacthub;
     this.formFiller = new FormFiller(options.autofillOptions.fields);
+
+    if (options.autofillOptions.icons) {
+      addSocialIconsToForm(options.autofillOptions.icons, this.socialNetworks, this);
+    }
   }
 
   sendUserToContactHub = (user: User) => this.contacthub('customer', user)

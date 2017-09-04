@@ -1,2 +1,3 @@
 import FormFiller from './formFiller';
-export { FormFiller };
+import addSocialIconsToForm from './addSocialIconsToForm';
+export { FormFiller, addSocialIconsToForm };

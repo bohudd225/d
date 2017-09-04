@@ -8,7 +8,7 @@ export type SocialNetworksClientIds = {
   linkedin?: string
 }
 
-export type SocialNetworks = keyof SocialNetworksClientIds
+export type SocialNetwork = keyof SocialNetworksClientIds
 
 export type Fields = {
   firstName?: string,
@@ -18,7 +18,12 @@ export type Fields = {
   gender?: string
 }
 
+export type Icons = {
+  container: string
+}
+
 export type AutofillOptions = {
+  icons?: Icons,
   fields: Fields
 }
 
