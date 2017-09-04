@@ -7,9 +7,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/form.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/input.min.css" />
     <link rel="stylesheet" href="style.css" />
+    <script>
+      window.ch=function(){(ch.q=ch.q||[]).push(arguments)};
+      ch('config', {
+        token: "CONTACTHUB_TOKEN",
+        workspaceId: "CONTACTHUB_WORKSPACE_ID",
+        nodeId: "CONTACTHUB_NODE_ID"
+      });
+    </script>
+    <script src='https://assets.contactlab.it/contacthub/sdk-browser/latest/contacthub.min.js'></script>
   </head>
   <body>
-    <form class="ui form">
+    <form class="ui form" id="form">
+      <div id="icons-container"></div>
       <div class="field">
         <label>First Name</label>
         <input type="text" id="firstName" placeholder="First Name">
@@ -17,6 +27,14 @@
       <div class="field">
         <label>Last Name</label>
         <input type="text" id="lastName" placeholder="Last Name">
+      </div>
+      <div class="field">
+        <label>Gender</label>
+        <input type="text" id="gender" placeholder="Gender">
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="text" id="email" placeholder="Email">
       </div>
       <div class="field">
         <label>Date of Birth</label>
@@ -44,11 +62,17 @@
           google: '795655891034-5tou4pabjpdjdcmunv1970ujkuqggj7m.apps.googleusercontent.com',
           linkedin: '778rorytckysk3'
         },
-        form: {
+        contacthub: window.ch,
+        autofillOptions: {
+          icons: {
+            container: '#icons-container'
+          },
           fields: {
             firstName: '#firstName',
             lastName: '#lastName',
-            dateOfBirth: '#dateOfBirth'
+            dateOfBirth: '#dateOfBirth',
+            gender: '#gender',
+            email: '#email'
           }
         }
       });
