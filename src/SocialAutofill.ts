@@ -19,7 +19,7 @@ export default class SocialAutofill {
 
     this.socialNetworks = new SocialNetworks(options.clientIds);
     this.contacthub = options.contacthub;
-    this.formFiller = new FormFiller(options.form.fields);
+    this.formFiller = new FormFiller(options.autofillOptions.fields);
   }
 
   sendUserToContactHub = (user: User) => this.contacthub('customer', user)

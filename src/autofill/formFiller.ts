@@ -12,7 +12,7 @@ function getUserDataFromFieldName(fieldName: FieldName, user: User): string | un
   }
 }
 
-export class FormFiller {
+export default class FormFiller {
 
   fields: Fields
 

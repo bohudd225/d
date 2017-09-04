@@ -18,14 +18,14 @@ export type Fields = {
   gender?: string
 }
 
-export type FormOptions = {
+export type AutofillOptions = {
   fields: Fields
 }
 
 export type Options = {
   clientIds: SocialNetworksClientIds,
   contacthub: ContactHubSDKBrowser,
-  form: FormOptions
+  autofillOptions: AutofillOptions
 }
 
 // tcomb version of Options to validate at run-time
@@ -36,7 +36,10 @@ export const Options = t.interface({
     linkedin: t.maybe(t.String)
   }, { strict: true }),
   contacthub: t.Function,
-  form: t.interface({
+  autofillOptions: t.interface({
+    icons: t.maybe(t.interface({
+      container: t.String
+    })),
     fields: t.interface({
       firstName: t.maybe(t.String),
       lastName: t.maybe(t.String),
