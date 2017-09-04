@@ -1,5 +1,5 @@
 import { User } from '../src/models';
-import { FormFiller } from '../src/form';
+import { FormFiller } from '../src/autofill';
 
 describe('FormFiller class', () => {
 

@@ -4,7 +4,7 @@ import SocialAutofill from '../src/SocialAutofill';
 const validOptions = {
   clientIds: { facebook: '123456', google: '123456', linkedin: '123456' },
   contacthub: () => {},
-  form: { fields: {} }
+  autofillOptions: { fields: {} }
 }
 
 // tests for JS-runtime
