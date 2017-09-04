@@ -7,7 +7,6 @@ import {
 
 export function getUserFromFacebookUser(facebookUser: FacebookUser): User {
   return {
-    externalId: facebookUser.id,
     base: {
       firstName: facebookUser.first_name,
       lastName: facebookUser.last_name,
@@ -18,7 +17,7 @@ export function getUserFromFacebookUser(facebookUser: FacebookUser): User {
         email: facebookUser.email
       },
       socialProfile: {
-        facebook: facebookUser.link
+        facebook: facebookUser.id
       }
     }
   }
@@ -26,7 +25,6 @@ export function getUserFromFacebookUser(facebookUser: FacebookUser): User {
 
 export function getUserFromGoogleUser(googleUser: GoogleUser): User {
   return {
-    externalId: googleUser.id,
     base: {
       firstName: googleUser.first_name,
       lastName: googleUser.last_name,
@@ -37,7 +35,7 @@ export function getUserFromGoogleUser(googleUser: GoogleUser): User {
         email: googleUser.email
       },
       socialProfile: {
-        google: googleUser.url
+        google: googleUser.id
       }
     }
   }
@@ -45,7 +43,6 @@ export function getUserFromGoogleUser(googleUser: GoogleUser): User {
 
 export function getUserFromLinkedInUser(linkedInUser: LinkedInUser): User {
   return {
-    externalId: linkedInUser.id,
     base: {
       firstName: linkedInUser.firstName,
       lastName: linkedInUser.lastName,
@@ -56,7 +53,7 @@ export function getUserFromLinkedInUser(linkedInUser: LinkedInUser): User {
         email: linkedInUser.emailAddress
       },
       socialProfile: {
-        linkedin: linkedInUser.publicProfileUrl
+        linkedin: linkedInUser.id
       }
     }
   }

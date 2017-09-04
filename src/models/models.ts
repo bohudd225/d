@@ -56,7 +56,6 @@ export const Options = t.interface({
 }, { strict: true, name: '"SocialAutofill"' });
 
 export type User = {
-  externalId: string,
   base: CustomerBase & {
     contacts: CustomerContacts,
     socialProfile: CustomerSocial
