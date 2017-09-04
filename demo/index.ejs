@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/form.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/input.min.css" />
     <link rel="stylesheet" href="style.css" />
-    <script>
+    <script type="text/javascript">
       window.ch=function(){(ch.q=ch.q||[]).push(arguments)};
       ch('config', {
         token: "CONTACTHUB_TOKEN",
@@ -15,7 +15,15 @@
         nodeId: "CONTACTHUB_NODE_ID"
       });
     </script>
-    <script src='https://assets.contactlab.it/contacthub/sdk-browser/latest/contacthub.min.js'></script>
+    <script type="text/javascript" src='https://assets.contactlab.it/contacthub/sdk-browser/latest/contacthub.min.js'></script>
+    <!-- start: Add SocialAutofill -->
+    <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+      <script
+        type='text/javascript'
+        src="<%= htmlWebpackPlugin.options.buildPath %><%= htmlWebpackPlugin.files.chunks[chunk].entry %><%= htmlWebpackPlugin.options.gzip %>"
+      ></script>
+    <% } %>
+    <!-- end: Add SocialAutofill -->
   </head>
   <body>
     <form class="ui form" id="form">
@@ -45,17 +53,8 @@
       <button type="button" class="ui button" onclick="socialAutofill.loginWithLinkedIn()">Login with LinkedIn</button>
     </form>
 
-    <!-- start: Add SocialAutofill -->
-    <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
-      <script
-        type='text/javascript'
-        src="<%= htmlWebpackPlugin.options.buildPath %><%= htmlWebpackPlugin.files.chunks[chunk].entry %><%= htmlWebpackPlugin.options.gzip %>"
-      ></script>
-    <% } %>
-    <!-- end: Add SocialAutofill -->
-
     <!-- start: Initialize SocialAutofill -->
-    <script>
+    <script type="text/javascript">
       var socialAutofill = new window.SocialAutofill({
         clientIds: {
           facebook: '1882104035447885',
