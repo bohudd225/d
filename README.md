@@ -6,7 +6,7 @@
 
 ## How to use
 
-Insert this snippet in your website (preferably in the <HEAD> section):
+Insert this snippet in your website (preferably in the `<HEAD>` section):
 
 ```html
 <script src='...'></script>
@@ -158,9 +158,11 @@ NOTE: `ContacthubConnectSocial` will only add the icons of the enabled social ne
 
 ### How to run tests
 
-`npm test` will run all tests once using Jest and WebdriverIO
+`npm test` will run all tests once using Jest
 
-`npm test-dev` will automatically re-run tests using Jest and WebdriverIO on every change
+`npm run test-dev` will automatically re-run tests using Jest on every change
+
+`npm run e2e` will run the end-to-end integration tests using Webdriver.IO
 
 ### How to open the demo page in your browser
 

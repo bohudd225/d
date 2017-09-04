@@ -1,3 +1,23 @@
 language: node_js
+dist: trusty
+addons:
+  chrome: stable
 node_js:
-  - "8.0"
+- '8.0'
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.27.5
+  - export PATH="$HOME/.yarn/bin:$PATH"
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:8080 &
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+  - npm start &
+script:
+- npm run typecheck
+- npm run test
+- npm run e2e
+env:
+  global:
+  - secure: BfIRb6OZDA4lO2SFPgoDCNKV2yVuoKSpdF0ZpebmCDcRlsrgsehwje1RJIxYb6BQ6JkctpCOhHHgiARzJblSaEyry6LAdwncF/SGyLuy22fE5f5Ik32riuqFoXMm58CvzkaiHXiqb9e8fU1pDm/ZaWPVnXszYRlvnjKqt6cyS1ZMb9F4I1LypEhUsu6nJVEKU5kWnqMqZ9MWNJsuKms9cpjpJ49IfdeMUcxfHxlbArWQr08h+KZ4YXIlKjgJ8KsxJY6nMM10hiCNxF0YS3EuR4e/RdkS1fOKN3k3kK+7xUKaUj0c+9O+YK4oSN71237QbPK2lfEpzueUn/66t1XVb3mT4UbWD2LZW3CkS5UPW3cAQQOIJcYB7Byn1tRRwMi0z1HX1Xr7KcRWT99MG2c5F3/740T0+peYvAZju0jFvSdN5NyJOzPbwTrOe8SINd3yAfCnlIcGlBjlauYhQo+fAibIpnyhn9az3Y09OBpbjIW4luyfNvMjsxeRwpzXGSiZm6OhNlIJ6eLAubmS58jBjh9D8FOvC9Ci4tV2yII27UpArBQoPSMgG8k2EOd5gXmSdmjuGlNuRQNkmmuxx9o5OY8NAQ0KB1QOqi12w5n3PuWKBVJbJ9+cfYtpnOnyRDEa+0WaR1ZGRA1ZIDBNBNiyY1ft3MuEl5WwCFL2L/bRLFE=
+  - secure: RqHZ7NaEpldYnt8SbZYpjZWtqpkVv2Rq08GbxiHJBT+Hc2yyFCbYB+m2HmZLK8/9/LY01IS5WcAWn/GSBfPLstqGm3k738Qo/zp6AF7VTuHsoenMN/WEUbCBBI+MaGs6hrGkZ/9+fZWJMeRVVBLpUw1vG2D/h+bretQuRnCk/C0oGdYL+Xnf/2Xi67Z24fa8+4vLUw3eka4qLcbpjTqLooBsLElyGsFDifZb5oZYrhLOmK2n4ttuQd91v1S6czsoOCYwHkzIKa1MG3iXqm3dOBbnVIhaCBR98hlhlsje5xUArROwycRqlfSfsiiRQMSmvqvIQ6Zlna5pevhU6n0640gwLyAsyq5J2GYdvUSlHW2vgG4rQdBSebt3fvFzW1INAFtaoUXdIGmqp+GkKbqcP2HiTfCGUqJOd3Yr+Qc83C958keMzA1xoLznhVCparGk/sKLfFgI9z5iDKfWvAY6rf05gXgKKvvEJgfh0xoQg0Ngml0CAzgVUjuuZ/zimee8daS1TpLThPcxPktMpyfx+wl1W5QqWTzUIJSKMb/7Xdma5yssYIyIPDtsdYQNc02W2bGWFjZRiCnigWwImimHS9N08PgVkReDtOEXMHv3/G7eJiZy0MZOgDgYn/sXlnjG/mjNS3S9Y782jJGh29BX51imQ01fWI3ViSZygZn4axM=
