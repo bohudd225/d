@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import SocialAutofill from '../src/SocialAutofill';
+import ContacthubConnectSocial from '../src/ContacthubConnectSocial';
 
 const validOptions = {
   clientIds: { facebook: '123456', google: '123456', linkedin: '123456' },
@@ -8,12 +8,12 @@ const validOptions = {
 }
 
 // tests for JS-runtime
-describe('SocialAutofill class', () => {
+describe('ContacthubConnectSocial class', () => {
 
   describe('Initialization', () => {
 
     it('should throw error if called without options', () => {
-      expect(() => new SocialAutofill()).toThrow('"Social Autofill" must be initialized with some options')
+      expect(() => new ContacthubConnectSocial()).toThrow('"Social Autofill" must be initialized with some options')
     });
 
     it('should throw error if called with invalid clientIds', () => {
@@ -33,12 +33,12 @@ describe('SocialAutofill class', () => {
       ];
 
       listOfInvalidClientIds.forEach(clientIds => {
-        expect(() => new SocialAutofill({ ...validOptions, clientIds })).toThrow()
+        expect(() => new ContacthubConnectSocial({ ...validOptions, clientIds })).toThrow()
       });
     });
 
     it('should not throw any error if called with correct options', () => {
-      expect(() => new SocialAutofill(validOptions)).not.toThrow()
+      expect(() => new ContacthubConnectSocial(validOptions)).not.toThrow()
     });
 
   });
@@ -46,11 +46,11 @@ describe('SocialAutofill class', () => {
   describe('Public functions', () => {
 
     it('login functions should return a Promise', () => {
-      const socialAutofill = new SocialAutofill(validOptions);
+      const contacthubConnectSocial = new ContacthubConnectSocial(validOptions);
 
-      expect(socialAutofill.loginWithFacebook() instanceof Promise).toBe(true);
-      expect(socialAutofill.loginWithGoogle() instanceof Promise).toBe(true);
-      expect(socialAutofill.loginWithLinkedIn() instanceof Promise).toBe(true);
+      expect(contacthubConnectSocial.loginWithFacebook() instanceof Promise).toBe(true);
+      expect(contacthubConnectSocial.loginWithGoogle() instanceof Promise).toBe(true);
+      expect(contacthubConnectSocial.loginWithLinkedIn() instanceof Promise).toBe(true);
     });
 
   });

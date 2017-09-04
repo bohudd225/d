@@ -18,7 +18,7 @@ export default class SocialNetworks {
 
   loginWithFacebook(): Promise<User> {
     if (typeof this.clientIds.facebook !== 'string') {
-      throw new Error('The provided client id for Facebook is invalid');
+      return Promise.reject('The provided client id for Facebook is invalid');
     }
 
     const Facebook = hello('facebook');
@@ -40,7 +40,7 @@ export default class SocialNetworks {
 
   loginWithGoogle(): Promise<User> {
     if (typeof this.clientIds.google !== 'string') {
-      throw new Error('The provided client id for Google is invalid');
+      return Promise.reject('The provided client id for Google is invalid');
     }
 
     const Google = hello('google');
@@ -61,7 +61,7 @@ export default class SocialNetworks {
 
   loginWithLinkedIn(): Promise<User> {
     if (typeof this.clientIds.linkedin !== 'string') {
-      throw new Error('The provided client id for LinkedIn is invalid');
+      return Promise.reject('The provided client id for LinkedIn is invalid');
     }
 
     const LinkedIn = (window as any).IN;

@@ -3,7 +3,7 @@ import { FormFiller, addSocialIconsToForm } from './autofill';
 import SocialNetworks from './socialNetworks';
 import { Options, ContactHubSDKBrowser, User } from './models';
 
-export default class SocialAutofill {
+export default class ContacthubConnectSocial {
 
   socialNetworks: SocialNetworks
   contacthub: ContactHubSDKBrowser

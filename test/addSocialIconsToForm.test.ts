@@ -1,5 +1,5 @@
 import { User } from '../src/models';
-import SocialAutofill from '../src/SocialAutofill';
+import ContacthubConnectSocial from '../src/ContacthubConnectSocial';
 
 const validOptions = {
   clientIds: { facebook: '123456', google: '123456', linkedin: '123456' },
@@ -16,7 +16,7 @@ describe('addSocialIconsToForm function', () => {
         <div id="icons-container"></div>
       </form>`;
 
-    new SocialAutofill(validOptions);
+    new ContacthubConnectSocial(validOptions);
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 

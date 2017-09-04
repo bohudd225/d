@@ -5,7 +5,6 @@ describe('FormFiller class', () => {
 
   it('"fillFormWithUserData" should fill the given fields with the relative user data', () => {
     const user: User = {
-      externalId: '123456789',
       base: {
         firstName: 'Mario',
         lastName: 'Rossi',

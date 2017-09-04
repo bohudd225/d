@@ -16,14 +16,14 @@
       });
     </script>
     <script type="text/javascript" src='https://assets.contactlab.it/contacthub/sdk-browser/latest/contacthub.min.js'></script>
-    <!-- start: Add SocialAutofill -->
+    <!-- start: Add ContacthubConnectSocial -->
     <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
       <script
         type='text/javascript'
         src="<%= htmlWebpackPlugin.options.buildPath %><%= htmlWebpackPlugin.files.chunks[chunk].entry %><%= htmlWebpackPlugin.options.gzip %>"
       ></script>
     <% } %>
-    <!-- end: Add SocialAutofill -->
+    <!-- end: Add ContacthubConnectSocial -->
   </head>
   <body>
     <form class="ui form" id="form">
@@ -48,14 +48,14 @@
         <label>Date of Birth</label>
         <input type="text" id="dateOfBirth" placeholder="Date of Birth">
       </div>
-      <button type="button" class="ui button" onclick="socialAutofill.loginWithFacebook()">Login with Facebook</button>
-      <button type="button" class="ui button" onclick="socialAutofill.loginWithGoogle()">Login with Google</button>
-      <button type="button" class="ui button" onclick="socialAutofill.loginWithLinkedIn()">Login with LinkedIn</button>
+      <button type="button" class="ui button" onclick="contacthubConnectSocial.loginWithFacebook()">Login with Facebook</button>
+      <button type="button" class="ui button" onclick="contacthubConnectSocial.loginWithGoogle()">Login with Google</button>
+      <button type="button" class="ui button" onclick="contacthubConnectSocial.loginWithLinkedIn()">Login with LinkedIn</button>
     </form>
 
-    <!-- start: Initialize SocialAutofill -->
+    <!-- start: Initialize ContacthubConnectSocial -->
     <script type="text/javascript">
-      var socialAutofill = new window.SocialAutofill({
+      var contacthubConnectSocial = new window.ContacthubConnectSocial({
         clientIds: {
           facebook: '1882104035447885',
           google: '795655891034-5tou4pabjpdjdcmunv1970ujkuqggj7m.apps.googleusercontent.com',
@@ -76,6 +76,6 @@
         }
       });
     </script>
-    <!-- end: Initialize SocialAutofill -->
+    <!-- end: Initialize ContacthubConnectSocial -->
   </body>
 </html>

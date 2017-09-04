@@ -1,2 +1,2 @@
-import SocialAutofill from './SocialAutofill';
-module.exports = SocialAutofill;
+import ContacthubConnectSocial from './ContacthubConnectSocial';
+module.exports = ContacthubConnectSocial;

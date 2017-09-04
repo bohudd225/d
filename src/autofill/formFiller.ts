@@ -35,7 +35,7 @@ export default class FormFiller {
           if (element && typeof element !== 'undefined') {
             element.value = userData;
           } else {
-            console.error(`SocialAutofill: the element "${fieldSelector}" cannot be filled automatically because it is not a valid text field`);
+            console.error(`ContacthubConnectSocial: the element "${fieldSelector}" cannot be filled automatically because it is not a valid text field`);
           }
         }
       });

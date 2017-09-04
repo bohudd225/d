@@ -16,7 +16,7 @@ export default {
   },
 
   output: {
-    library: 'SocialAutofill',
+    library: 'ContacthubConnectSocial',
     libraryTarget: 'var' as 'var',
     path: paths.DIST,
     filename: 'app.[hash].js'
