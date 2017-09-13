@@ -40,7 +40,7 @@ describe('converters from API user to internal "User" structure', () => {
       email: user.base.contacts.email,
     };
 
-    expect(getUserFromFacebookUser(facebookUser as FacebookUser)).toEqual(user);
+    expect(getUserFromFacebookUser(facebookUser as FacebookUser, [])).toEqual(user);
   });
 
   it('getUserFromGoogleUser', () => {
@@ -64,7 +64,7 @@ describe('converters from API user to internal "User" structure', () => {
       email: user.base.contacts.email
     };
 
-    expect(getUserFromGoogleUser(googleUser as GoogleUser)).toEqual(user);
+    expect(getUserFromGoogleUser(googleUser as GoogleUser, [])).toEqual(user);
   });
 
   it('getUserFromLinkedInUser', () => {
@@ -90,7 +90,7 @@ describe('converters from API user to internal "User" structure', () => {
       emailAddress: user.base.contacts.email,
     };
 
-    expect(getUserFromLinkedInUser(linkedInUser as LinkedInUser)).toEqual(user);
+    expect(getUserFromLinkedInUser(linkedInUser as LinkedInUser, [])).toEqual(user);
   });
 
 });
