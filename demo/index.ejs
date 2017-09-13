@@ -10,9 +10,9 @@
     <script type="text/javascript">
       window.ch=function(){(ch.q=ch.q||[]).push(arguments)};
       ch('config', {
-        token: "CONTACTHUB_TOKEN",
-        workspaceId: "CONTACTHUB_WORKSPACE_ID",
-        nodeId: "CONTACTHUB_NODE_ID"
+        token: <%= htmlWebpackPlugin.options.CONTACTHUB_TOKEN %>,
+        workspaceId: <%= htmlWebpackPlugin.options.CONTACTHUB_WORKSPACE_ID %>,
+        nodeId: <%= htmlWebpackPlugin.options.CONTACTHUB_NODE_ID %>
       });
     </script>
     <script type="text/javascript" src='https://assets.contactlab.it/contacthub/sdk-browser/latest/contacthub.min.js'></script>

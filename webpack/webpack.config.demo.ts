@@ -1,6 +1,7 @@
 import * as webpack from 'webpack';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpackBase, { paths } from './webpack.base';
+const config = require('../config.json');
 
 export default {
 
@@ -26,6 +27,9 @@ export default {
       sourceMap: true
     }),
     new HtmlWebpackPlugin({
+      CONTACTHUB_TOKEN: `"${config.CONTACTHUB_TOKEN || process.env.CONTACTHUB_TOKEN}"`,
+      CONTACTHUB_WORKSPACE_ID: `"${config.CONTACTHUB_WORKSPACE_ID || process.env.CONTACTHUB_WORKSPACE_ID}"`,
+      CONTACTHUB_NODE_ID: `"${config.CONTACTHUB_NODE_ID || process.env.CONTACTHUB_NODE_ID}"`,
       template: `${paths.DEMO}/index.ejs`
     })
   ]
