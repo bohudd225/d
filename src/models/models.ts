@@ -27,18 +27,26 @@ export type AutofillOptions = {
   fields: Fields
 }
 
+export type Scope = 'likes' | 'education_history' | 'work_history'
+
 export type Options = {
-  clientIds: SocialNetworksClientIds,
+  socialNetworks: {
+    clientIds: SocialNetworksClientIds,
+    scopes: Scope[]
+  },
   contacthub: ContactHubSDKBrowser,
   autofillOptions: AutofillOptions
 }
 
 // tcomb version of Options to validate at run-time
 export const Options = t.interface({
-  clientIds: t.interface({
-    facebook: t.maybe(t.String),
-    google: t.maybe(t.String),
-    linkedin: t.maybe(t.String)
+  socialNetworks: t.interface({
+    clientIds: t.interface({
+      facebook: t.maybe(t.String),
+      google: t.maybe(t.String),
+      linkedin: t.maybe(t.String)
+    }, { strict: true }),
+    scopes: t.maybe(t.list(t.enums.of(['likes', 'education_history', 'work_history'])))
   }, { strict: true }),
   contacthub: t.Function,
   autofillOptions: t.interface({
