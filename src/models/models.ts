@@ -92,6 +92,7 @@ export type FacebookLike = {
 }
 
 // copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/gapi.plus/index.d.ts
+// see https://developers.google.com/+/web/api/rest/latest/people for official docs from Google
 export interface GoogleUser extends HelloUser {
   kind: 'plus#person';
   etag: string;
@@ -133,7 +134,7 @@ export interface GoogleUser extends HelloUser {
     name: string;
     department: string;
     title: string;
-    type: string;
+    type: 'school' | 'work';
     startDate: string;
     endDate: string;
     location: string;
