@@ -63,6 +63,8 @@ export const Options = t.interface({
   }, { strict: true })
 }, { strict: true, name: '"ContacthubConnectSocial"' });
 
+export type FacebookScope = 'email' | 'user_birthday' | 'user_likes' | 'user_education_history' | 'user_work_history'
+
 export type User = {
   base: CustomerBase & {
     contacts: CustomerContacts,

@@ -22,16 +22,28 @@ export default class SocialNetworks {
     this.scopes = scopes;
   }
 
+  convertScopes(scopes: Scope[]): FacebookScope[] {
+    const convertionMap: { [k in Scope]: FacebookScope } = {
+      likes: 'user_likes',
+      education_history: 'user_education_history',
+      work_history: 'user_work_history'
+    }
+
+    return scopes.map(s => convertionMap[s]);
+  }
+
   loginWithFacebook(): Promise<User> {
     if (typeof this.clientIds.facebook !== 'string') {
       return Promise.reject('The provided client id for Facebook is invalid');
     }
 
     const Facebook = hello('facebook');
+
     const fields: FacebookFields[] = ['first_name', 'last_name', 'gender', 'birthday', 'link', 'email'];
+    const scopes: FacebookScope[] = ['email', 'user_birthday', ...this.convertScopes(this.scopes)];
 
     return new Promise((resolve, reject) => {
-      Facebook.login({ scope: 'email' }).then(() => {
+      Facebook.login({ scope: scopes.join(',') }).then(() => {
         Facebook.api('me', { fields }).then((facebookUser: FacebookUser) => {
           try {
             const user = getUserFromFacebookUser(facebookUser);
