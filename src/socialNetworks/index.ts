@@ -1,7 +1,7 @@
 import { Promise } from 'es6-promise';
 import hello from '../vendor/hello';
 import injectLinkedInSDK from '../vendor/injectLinkedInSDK';
-import { Options, Scope, FacebookScope, SocialNetworksClientIds, FacebookFields, FacebookUser, GoogleUser, LinkedInUser, User } from '../models';
+import { Options, FacebookLike, Scope, FacebookScope, SocialNetworksClientIds, FacebookFields, FacebookUser, GoogleUser, LinkedInUser, User } from '../models';
 import { getUserFromFacebookUser, getUserFromGoogleUser, getUserFromLinkedInUser } from '../userConverters';
 
 export default class SocialNetworks {
@@ -39,20 +39,21 @@ export default class SocialNetworks {
 
     const Facebook = hello('facebook');
 
-    const fields: FacebookFields[] = ['first_name', 'last_name', 'gender', 'birthday', 'link', 'email'];
+    const fields: FacebookFields[] = ['first_name', 'last_name', 'gender', 'birthday', 'link', 'email', 'education', 'work'];
     const scopes: FacebookScope[] = ['email', 'user_birthday', ...this.convertScopes(this.scopes)];
 
     return new Promise((resolve, reject) => {
       Facebook.login({ scope: scopes.join(',') }).then(() => {
-        Facebook.api('me', { fields }).then((facebookUser: FacebookUser) => {
-          try {
-            const user = getUserFromFacebookUser(facebookUser);
-            resolve(user);
-          } catch (e) {
-            reject(e);
-          }
+        Promise.all([Facebook.api('me', { fields }), Facebook.api('me/likes')])
+          .then(([facebookUser, likes]: [FacebookUser, FacebookLike[]]) => {
+            try {
+              const user = getUserFromFacebookUser(facebookUser);
+              resolve(user);
+            } catch (e) {
+              reject(e);
+            }
+          }, reject);
         }, reject);
-      }, reject);
     });
   }
 

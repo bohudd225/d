@@ -81,8 +81,14 @@ export interface HelloUser {
   email: string
 }
 
-export type FacebookFields = 'id' | 'first_name' | 'last_name' | 'gender' | 'birthday' | 'link' | 'email';
+export type FacebookFields = 'id' | 'first_name' | 'last_name' | 'gender' | 'birthday' | 'link' | 'email' | 'education' | 'work';
 export type FacebookUser = Pick<FbGraphApi.FbUser, FacebookFields> & HelloUser
+export type FacebookLike = {
+  created_time: string,
+  id: string,
+  name: string,
+  pictures: any[]
+}
 
 // copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/gapi.plus/index.d.ts
 export interface GoogleUser extends HelloUser {
