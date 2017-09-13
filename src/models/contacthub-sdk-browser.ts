@@ -34,44 +34,84 @@ export type EventOptions = {
   properties?: Object
 };
 
-export type CustomerId = {
-  customerId: string
+export type Tags = {
+  auto: string[],
+  manual: string[]
 };
 
-export type CustomerTags = {
-  auto?: Array<string>,
-  manual?: Array<string>
+export type OtherContact = {
+  name?: string,
+  type?: 'MOBILE' | 'PHONE' | 'EMAIL' | 'FAX' | 'OTHER',
+  value?: string
 };
 
-export type CustomerContacts = {
+export type MobileDeviceType = 'IOS' | 'ANDROID' | 'WINDOWS_PHONE' | 'FIREOS';
+export type MobileDeviceNotificationCenter = 'APN' | 'GCM' | 'WNS' | 'ADM' | 'SNS';
+
+export type MobileDevice = {
+  appId: string,
+  identifier?: string,
+  name?: string,
+  type?: MobileDeviceType,
+  notificationService: MobileDeviceNotificationCenter
+};
+
+export type Contacts = {
   email?: string,
   fax?: string,
   mobilePhone?: string,
   phone?: string,
-  otherContacts?: string,
-  mobileDevices?: string
+  otherContacts?: OtherContact[],
+  mobileDevices?: MobileDevice[]
 };
 
-export type CustomerGeo = {
-  lat: string,
-  lon: string
+export type Geo = {
+  lat: number,
+  lon: number
 };
 
-export type CustomerAddress = {
+export type Address = {
   street?: string,
   city?: string,
   country?: string,
   province?: string,
   zip?: string,
-  geo?: CustomerGeo
+  geo?: Geo
 };
 
-export type CustomerCredential = {
+export type Credential = {
   username?: string,
   password?: string
 };
 
-export type CustomerSocial = {
+export type Education = {
+  id: string,
+  schoolType?: 'PRIMARY_SCHOOL' | 'SECONDARY_SCHOOL' | 'HIGH_SCHOOL' | 'COLLEGE' | 'OTHER',
+  schoolName?: string,
+  schoolConcentration?: string,
+  startYear?: number,
+  endYear?: number,
+  isCurrent?: boolean
+};
+
+export type Job = {
+  id: string,
+  companyIndustry?: string,
+  companyName?: string,
+  jobTitle?: string,
+  startDate?: string,
+  endDate?: string,
+  isCurrent?: boolean
+};
+
+export type Like = {
+  id: string,
+  category?: string,
+  name?: string,
+  createdTime?: string
+};
+
+export type Social = {
   facebook?: string,
   google?: string,
   instagram?: string,
@@ -80,7 +120,26 @@ export type CustomerSocial = {
   twitter?: string
 };
 
-export type CustomerBase = {
+export type Preference = {
+  key: string,
+  value: string
+};
+
+export type Subscription = {
+  id: string,
+  name?: string,
+  type?: string,
+  kind?: 'DIGITAL_MESSAGE' | 'SERVICE' | 'OTHER',
+  subscribed?: boolean,
+  startDate?: string,
+  endDate?: string,
+  subscriberId?: string,
+  registeredAt?: string,
+  updatedAt?: string,
+  preferences?: Preference[]
+};
+
+export type BaseProperties = {
   pictureUrl?: string,
   title?: string,
   prefix?: string,
@@ -91,25 +150,29 @@ export type CustomerBase = {
   dob?: string,
   locale?: string,
   timezone?: string,
-  contacts?: CustomerContacts,
-  address?: CustomerAddress,
-  credential?: CustomerCredential,
-  educations?: string,
-  likes?: Number,
-  socialProfile?: CustomerSocial,
-  jobs?: string,
-  subscriptions?: string
+  contacts?: Contacts,
+  address?: Address,
+  credential?: Credential,
+  educations?: Education[],
+  likes?: Like[],
+  socialProfile?: Social,
+  jobs?: Job[],
+  subscriptions?: Subscription[]
 };
 
 export type CustomerData = {
-  id?: string,
-  base?: CustomerBase,
+  externalId?: string,
+  base?: BaseProperties,
   extended?: Object,
   extra?: string,
-  tags?: CustomerTags,
-  externalId?: string
+  tags?: Tags
 };
 
+export type Customer = CustomerData & {
+  id: string,
+  registeredAt: string,
+  updatedAt: string
+};
 
 export type CHConfig = (method: 'config', options: ConfigOptions) => void;
 export type CHCustomer = (method: 'customer', options: CustomerData) => void;

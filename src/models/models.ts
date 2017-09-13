@@ -1,6 +1,6 @@
 import * as t from 'tcomb';
 import FbGraphApi from './facebook-api';
-import { CustomerBase, CustomerSocial, CustomerContacts, ContactHubSDKBrowser } from './contacthub-sdk-browser';
+import { BaseProperties as CustomerBase, Social as CustomerSocial, Contacts as CustomerContacts, ContactHubSDKBrowser } from './contacthub-sdk-browser';
 
 export type SocialNetworksClientIds = {
   facebook?: string,
