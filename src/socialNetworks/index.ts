@@ -1,7 +1,7 @@
 import { Promise } from 'es6-promise';
 import hello from '../vendor/hello';
 import injectLinkedInSDK from '../vendor/injectLinkedInSDK';
-import { Options, FacebookLike, Scope, FacebookScope, SocialNetworksClientIds, FacebookFields, FacebookUser, GoogleUser, LinkedInUser, User } from '../models';
+import { Options, FacebookLike, Scope, FacebookScope, GoogleScope, SocialNetworksClientIds, FacebookFields, FacebookUser, GoogleUser, LinkedInUser, User } from '../models';
 import { getUserFromFacebookUser, getUserFromGoogleUser, getUserFromLinkedInUser } from '../userConverters';
 
 export default class SocialNetworks {
@@ -22,7 +22,7 @@ export default class SocialNetworks {
     this.scopes = scopes;
   }
 
-  convertScopes(scopes: Scope[]): FacebookScope[] {
+  getFacebookScopesFromScopes(scopes: Scope[]): FacebookScope[] {
     const convertionMap: { [k in Scope]: FacebookScope } = {
       likes: 'user_likes',
       education_history: 'user_education_history',
@@ -40,7 +40,7 @@ export default class SocialNetworks {
     const Facebook = hello('facebook');
 
     const fields: FacebookFields[] = ['first_name', 'last_name', 'gender', 'birthday', 'link', 'email', 'education', 'work'];
-    const scopes: FacebookScope[] = ['email', 'user_birthday', ...this.convertScopes(this.scopes)];
+    const scopes: FacebookScope[] = ['email', 'user_birthday', ...this.getFacebookScopesFromScopes(this.scopes)];
 
     return new Promise((resolve, reject) => {
       Facebook.login({ scope: scopes.join(',') }).then(() => {
@@ -64,8 +64,10 @@ export default class SocialNetworks {
 
     const Google = hello('google');
 
+    const scopes: GoogleScope[] = ['email', 'birthday'];
+
     return new Promise((resolve, reject) => {
-      Google.login({ scope: 'email' }).then(() => {
+      Google.login({ scope: scopes.join(',') }).then(() => {
         Google.api('me').then((googleUser: GoogleUser) => {
           try {
             const user = getUserFromGoogleUser(googleUser);
