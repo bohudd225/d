@@ -28,27 +28,30 @@ export default class ContacthubConnectSocial {
 
   sendUserToContactHub = (user: User) => this.contacthub('customer', user)
 
-  loginWithFacebook(): Promise<void> {
+  loginWithFacebook(): Promise<User> {
     return this.socialNetworks.loginWithFacebook()
       .then(user => {
         this.sendUserToContactHub(user);
         this.formFiller.fillFormWithUserData(user);
+        return user;
       });
   }
 
-  loginWithGoogle(): Promise<void> {
+  loginWithGoogle(): Promise<User> {
     return this.socialNetworks.loginWithGoogle()
       .then(user => {
         this.sendUserToContactHub(user);
         this.formFiller.fillFormWithUserData(user);
+        return user;
       });
   }
 
-  loginWithLinkedIn(): Promise<void> {
+  loginWithLinkedIn(): Promise<User> {
     return this.socialNetworks.loginWithLinkedIn()
       .then(user => {
         this.sendUserToContactHub(user);
         this.formFiller.fillFormWithUserData(user);
+        return user;
       });
   }
 }
