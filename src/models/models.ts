@@ -180,5 +180,10 @@ export type LinkedInUser = {
   formattedName: string,
   pictureUrl: string,
   publicProfileUrl: string,
-  emailAddress: string
+  emailAddress: string,
+  birthDate?: {
+    day: number,
+    month: number,
+    year: number
+  }
 }

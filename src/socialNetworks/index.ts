@@ -96,7 +96,7 @@ export default class SocialNetworks {
       const onLogin = () => {
         LinkedIn.API
           .Raw()
-          .url('/people/~:(picture-url,first-name,last-name,id,formatted-name,email-address,public-profile-url)')
+          .url('/people/~:(picture-url,first-name,last-name,id,formatted-name,email-address,public-profile-url,educations,positions,birthDate)')
           .method('GET')
           .body()
           .result((linkedInUser: LinkedInUser) => {

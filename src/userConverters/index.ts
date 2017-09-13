@@ -47,7 +47,9 @@ export function getUserFromLinkedInUser(linkedInUser: LinkedInUser): User {
       firstName: linkedInUser.firstName,
       lastName: linkedInUser.lastName,
       pictureUrl: linkedInUser.pictureUrl,
-      dob: undefined, // not exposed by LinkedIn API
+      dob: linkedInUser.birthDate ?
+        `${linkedInUser.birthDate.year}-${linkedInUser.birthDate.month}-${linkedInUser.birthDate.day}` :
+        undefined,
       gender: undefined, // not exposed by LinkedIn API
       contacts: {
         email: linkedInUser.emailAddress
