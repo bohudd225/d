@@ -32,7 +32,7 @@ export type Scope = 'likes' | 'education_history' | 'work_history'
 export type Options = {
   socialNetworks: {
     clientIds: SocialNetworksClientIds,
-    scopes: Scope[]
+    scopes?: Scope[]
   },
   contacthub: ContactHubSDKBrowser,
   autofillOptions: AutofillOptions

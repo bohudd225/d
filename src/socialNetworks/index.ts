@@ -19,7 +19,7 @@ export default class SocialNetworks {
     hello.init({ ...clientIds as { [k: string]: string } }); // "..." are needed because `hello` modifies the given options
 
     this.clientIds = clientIds;
-    this.scopes = scopes;
+    this.scopes = scopes || ['likes', 'education_history', 'work_history'];
   }
 
   getFacebookScopesFromScopes(scopes: Scope[]): FacebookScope[] {

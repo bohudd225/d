@@ -2,7 +2,9 @@ import { User } from '../src/models';
 import ContacthubConnectSocial from '../src/ContacthubConnectSocial';
 
 const validOptions = {
-  clientIds: { facebook: '123456', google: '123456', linkedin: '123456' },
+  socialNetworks: {
+    clientIds: { facebook: '123456', google: '123456', linkedin: '123456' }
+  },
   contacthub: () => {},
   autofillOptions: { icons: { container: '#icons-container' }, fields: {} }
 }
@@ -19,5 +21,25 @@ describe('addSocialIconsToForm function', () => {
     new ContacthubConnectSocial(validOptions);
     expect(document.body.innerHTML).toMatchSnapshot();
   });
+
+  it('throw error if container can\'t be found', () => new Promise((resolve, reject) => {
+    console.error = (e) => {
+      if (e === 'ContacthubConnectSocial: the icons container "#wrong-id" could not be found') {
+        resolve();
+      } else {
+        reject();
+      }
+    }
+
+    new ContacthubConnectSocial({
+      ...validOptions,
+      autofillOptions: {
+        ...validOptions.autofillOptions,
+        icons: {
+          container: '#wrong-id'
+        }
+      }
+    });
+  }));
 
 });
