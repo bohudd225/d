@@ -87,6 +87,11 @@ export default class SocialNetworks {
 
     const LinkedIn = (window as any).IN;
 
+    /* LinkedIn scopes are different:
+      - they are set only in the app setting
+      - LinkedIn has no additional scopes apart from "profile" and "email" (which are both required by ContacthubSocialConnect)
+    */
+
     return new Promise((resolve) => {
       const onLogin = () => {
         LinkedIn.API
