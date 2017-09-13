@@ -173,6 +173,17 @@ export interface GoogleUser extends HelloUser {
   cherry-picked the keys we use from docs here: https://developer.linkedin.com/docs/fields/basic-profile
   note: linkedin sdk (apparently) converts each key to camelCase
 */
+
+export type MultiLocaleString = {
+  preferredLocale?: {
+    country: string,
+    language: string
+  },
+  localized: {
+    [k: string]: string
+  }
+}
+
 export type LinkedInUser = {
   id: string,
   firstName: string,
@@ -185,5 +196,32 @@ export type LinkedInUser = {
     day: number,
     month: number,
     year: number
-  }
+  },
+  educations?: {
+    id: string,
+    activities?: never,
+    degreeName?: never,
+    endMonthYear?: { year: number },
+    startMonthYear?: { year: number },
+    fieldsOfStudy?: never,
+    grade?: never,
+    notes?: never,
+    program?: never,
+    richMediaAssociations?: never,
+    school?: never,
+    schoolName?: MultiLocaleString
+  }[],
+  positions?: {
+    id: string,
+    company?: never,
+    companyName?: MultiLocaleString,
+    description?: never,
+    endMonthYear?: { year: number },
+    startMonthYear?: { year: number },
+    location?: never,
+    locationName?: never,
+    richMediaAssociations?: never,
+    title?: MultiLocaleString
+  }[]
+
 }

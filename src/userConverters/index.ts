@@ -6,7 +6,17 @@ import {
   Scope
 } from '../models';
 
-export function getUserFromFacebookUser(facebookUser: FacebookUser): User {
+export function getUserFromFacebookUser(facebookUser: FacebookUser, scopes: Scope[]): User {
+  const facebookEducations = facebookUser.education || [];
+  const facebookJobs = facebookUser.work || [];
+
+  const facebookEducationTypeToJobType = {
+    'College': 'COLLEGE',
+    'High School': 'HIGH_SCHOOL',
+    'Secondary School': 'SECONDARY_SCHOOL',
+    'Primary School': 'PRIMARY_SCHOOL'
+  };
+
   return {
     base: {
       firstName: facebookUser.first_name,
@@ -19,7 +29,23 @@ export function getUserFromFacebookUser(facebookUser: FacebookUser): User {
       },
       socialProfile: {
         facebook: facebookUser.id
-      }
+      },
+      jobs: scopes.indexOf('work_history') >= 0 ?
+        facebookJobs.map(j => ({
+          id: j.id,
+          startDate: j.start_date,
+          endDate: j.end_date,
+          jobTitle: j.position ? j.position.name : undefined,
+          companyName: j.employer ? j.employer.name : undefined
+        })) : undefined,
+      educations: scopes.indexOf('education_history') >= 0 ?
+        facebookEducations.map(e => ({
+          id: `${Math.random()}`,
+          schoolName: e.school ? e.school.name : undefined,
+          schoolType: e.type ? facebookEducationTypeToJobType[e.type] : undefined,
+          schoolConcentration: e.concentration ? e.concentration[0].name : undefined,
+          startYear: e.year && parseInt(e.year.name) ? parseInt(e.year.name) : undefined
+        })) : undefined
     }
   }
 }
@@ -42,7 +68,7 @@ export function getUserFromGoogleUser(googleUser: GoogleUser, scopes: Scope[]): 
       socialProfile: {
         google: googleUser.id
       },
-      jobs: scopes.indexOf('education_history') >= 0 ?
+      jobs: scopes.indexOf('work_history') >= 0 ?
         googleJobs.map(j => ({
           id: `${Math.random()}`,
           startDate: j.startDate,
@@ -51,7 +77,7 @@ export function getUserFromGoogleUser(googleUser: GoogleUser, scopes: Scope[]): 
           jobTitle: j.title,
           companyName: j.name
         })) : undefined,
-      educations: scopes.indexOf('work_history') >= 0 ?
+      educations: scopes.indexOf('education_history') >= 0 ?
         googleEducations.map(e => ({
           id: `${Math.random()}`,
           schoolName: e.name,
@@ -61,7 +87,10 @@ export function getUserFromGoogleUser(googleUser: GoogleUser, scopes: Scope[]): 
   }
 }
 
-export function getUserFromLinkedInUser(linkedInUser: LinkedInUser): User {
+export function getUserFromLinkedInUser(linkedInUser: LinkedInUser, scopes: Scope[]): User {
+  const linkedInEducations = linkedInUser.educations || [];
+  const linkedInJobs = linkedInUser.positions || [];
+
   return {
     base: {
       firstName: linkedInUser.firstName,
@@ -76,7 +105,20 @@ export function getUserFromLinkedInUser(linkedInUser: LinkedInUser): User {
       },
       socialProfile: {
         linkedin: linkedInUser.id
-      }
+      },
+      jobs: scopes.indexOf('work_history') >= 0 ?
+        linkedInJobs.map(j => ({
+          id: j.id,
+          jobTitle: j.title ? j.title.localized[Object.keys(j.title.localized)[0]] : undefined,
+          companyName: j.companyName ? j.companyName.localized[Object.keys(j.companyName.localized)[0]] : undefined
+        })) : undefined,
+      educations: scopes.indexOf('education_history') >= 0 ?
+        linkedInEducations.map(e => ({
+          id: e.id,
+          schoolName: e.schoolName ? e.schoolName.localized[Object.keys(e.schoolName.localized)[0]] : undefined,
+          startYear: e.startMonthYear ? e.startMonthYear.year : undefined,
+          endYear: e.endMonthYear ? e.endMonthYear.year : undefined
+        })) : undefined
     }
   }
 }

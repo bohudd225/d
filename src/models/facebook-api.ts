@@ -89,15 +89,15 @@ declare module FbGraphApi {
 
   export interface FbWorkExperience {
     id: string;
-    description: string;
-    employer: FbPage;
-    end_date: string;
-    from: FbUser;
-    location: FbPage;
-    position: FbPage;
-    projects: FbProjectExperience[];
-    start_date: string;
-    with: FbUser[];
+    description?: string;
+    employer?: FbPage;
+    end_date?: string;
+    from?: FbUser;
+    location?: FbPage;
+    position?: FbPage;
+    projects?: FbProjectExperience[];
+    start_date?: string;
+    with?: FbUser[];
   }
 
   export interface FbProjectExperience {
@@ -158,13 +158,13 @@ declare module FbGraphApi {
 
   export interface FbEducationExperience {
     id: string;
-    classes: FbExperience[];
-    concentration: FbPage[];
-    degree: FbPage;
-    school: FbPage;
-    type: string;
-    with: FbUser[];
-    year: FbPage;
+    classes?: FbExperience[];
+    concentration?: FbPage[];
+    degree?: FbPage;
+    school?: FbPage;
+    type?: string;
+    with?: FbUser[];
+    year?: FbPage;
   }
 
   export interface FbUserDevice {

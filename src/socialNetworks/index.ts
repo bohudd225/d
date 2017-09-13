@@ -47,7 +47,7 @@ export default class SocialNetworks {
         Promise.all([Facebook.api('me', { fields }), Facebook.api('me/likes')])
           .then(([facebookUser, likes]: [FacebookUser, FacebookLike[]]) => {
             try {
-              const user = getUserFromFacebookUser(facebookUser);
+              const user = getUserFromFacebookUser(facebookUser, this.scopes);
               resolve(user);
             } catch (e) {
               reject(e);
@@ -100,7 +100,7 @@ export default class SocialNetworks {
           .method('GET')
           .body()
           .result((linkedInUser: LinkedInUser) => {
-            resolve(getUserFromLinkedInUser(linkedInUser));
+            resolve(getUserFromLinkedInUser(linkedInUser, this.scopes));
           });
       }
 
