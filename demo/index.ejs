@@ -56,10 +56,13 @@
     <!-- start: Initialize ContacthubConnectSocial -->
     <script type="text/javascript">
       var contacthubConnectSocial = new window.ContacthubConnectSocial({
-        clientIds: {
-          facebook: '1882104035447885',
-          google: '795655891034-5tou4pabjpdjdcmunv1970ujkuqggj7m.apps.googleusercontent.com',
-          linkedin: '778rorytckysk3'
+        socialNetworks: {
+          clientIds: {
+            facebook: '1882104035447885',
+            google: '795655891034-5tou4pabjpdjdcmunv1970ujkuqggj7m.apps.googleusercontent.com',
+            linkedin: '778rorytckysk3'
+          },
+          scopes: ['likes']
         },
         contacthub: window.ch,
         autofillOptions: {

@@ -1,19 +1,25 @@
 import { Promise } from 'es6-promise';
 import hello from '../vendor/hello';
 import injectLinkedInSDK from '../vendor/injectLinkedInSDK';
-import { SocialNetworksClientIds, FacebookFields, FacebookUser, GoogleUser, LinkedInUser, User } from '../models';
+import { Options, Scope, FacebookScope, SocialNetworksClientIds, FacebookFields, FacebookUser, GoogleUser, LinkedInUser, User } from '../models';
 import { getUserFromFacebookUser, getUserFromGoogleUser, getUserFromLinkedInUser } from '../userConverters';
 
 export default class SocialNetworks {
 
   clientIds: SocialNetworksClientIds
+  scopes: Scope[]
 
-  constructor(clientIds: SocialNetworksClientIds) {
+  constructor(socialNetworksOptions: Options['socialNetworks']) {
+    const { clientIds, scopes } = socialNetworksOptions;
+
     if (clientIds.linkedin) {
       injectLinkedInSDK(clientIds.linkedin);
     }
+
     hello.init({ ...clientIds as { [k: string]: string } }); // "..." are needed because `hello` modifies the given options
+
     this.clientIds = clientIds;
+    this.scopes = scopes;
   }
 
   loginWithFacebook(): Promise<User> {

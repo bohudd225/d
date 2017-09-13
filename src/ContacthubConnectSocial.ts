@@ -17,7 +17,7 @@ export default class ContacthubConnectSocial {
     // fully validate "options" with tcomb
     Options(options as any);
 
-    this.socialNetworks = new SocialNetworks(options.clientIds);
+    this.socialNetworks = new SocialNetworks(options.socialNetworks);
     this.contacthub = options.contacthub;
     this.formFiller = new FormFiller(options.autofillOptions.fields);
 
