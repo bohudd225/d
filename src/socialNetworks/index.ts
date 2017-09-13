@@ -70,7 +70,7 @@ export default class SocialNetworks {
       Google.login({ scope: scopes.join(',') }).then(() => {
         Google.api('me').then((googleUser: GoogleUser) => {
           try {
-            const user = getUserFromGoogleUser(googleUser);
+            const user = getUserFromGoogleUser(googleUser, this.scopes);
             resolve(user);
           } catch (e) {
             reject(e);

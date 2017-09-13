@@ -2,7 +2,8 @@ import {
   FacebookUser,
   GoogleUser,
   LinkedInUser,
-  User
+  User,
+  Scope
 } from '../models';
 
 export function getUserFromFacebookUser(facebookUser: FacebookUser): User {
@@ -23,7 +24,11 @@ export function getUserFromFacebookUser(facebookUser: FacebookUser): User {
   }
 }
 
-export function getUserFromGoogleUser(googleUser: GoogleUser): User {
+export function getUserFromGoogleUser(googleUser: GoogleUser, scopes: Scope[]): User {
+  const { organizations = [] } = googleUser;
+  const googleEducations = organizations.filter(o => o.type === 'school');
+  const googleJobs = organizations.filter(o => o.type === 'work');
+
   return {
     base: {
       firstName: googleUser.first_name,
@@ -36,7 +41,22 @@ export function getUserFromGoogleUser(googleUser: GoogleUser): User {
       },
       socialProfile: {
         google: googleUser.id
-      }
+      },
+      jobs: scopes.indexOf('education_history') >= 0 ?
+        googleJobs.map(j => ({
+          id: `${Math.random()}`,
+          startDate: j.startDate,
+          endDate: j.endDate,
+          isCurrent: j.primary,
+          jobTitle: j.title,
+          companyName: j.name
+        })) : undefined,
+      educations: scopes.indexOf('work_history') >= 0 ?
+        googleEducations.map(e => ({
+          id: `${Math.random()}`,
+          schoolName: e.name,
+          isCurrent: e.primary
+        })) : undefined
     }
   }
 }
