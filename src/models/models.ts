@@ -174,16 +174,6 @@ export interface GoogleUser extends HelloUser {
   note: linkedin sdk (apparently) converts each key to camelCase
 */
 
-export type MultiLocaleString = {
-  preferredLocale?: {
-    country: string,
-    language: string
-  },
-  localized: {
-    [k: string]: string
-  }
-}
-
 export type LinkedInUser = {
   id: string,
   firstName: string,
@@ -198,30 +188,41 @@ export type LinkedInUser = {
     year: number
   },
   educations?: {
-    id: string,
-    activities?: never,
-    degreeName?: never,
-    endMonthYear?: { year: number },
-    startMonthYear?: { year: number },
-    fieldsOfStudy?: never,
-    grade?: never,
-    notes?: never,
-    program?: never,
-    richMediaAssociations?: never,
-    school?: never,
-    schoolName?: MultiLocaleString
-  }[],
+    values: {
+      id: number,
+      activities?: never,
+      degreeName?: never,
+      endMonthYear?: { year: number },
+      startMonthYear?: { year: number },
+      fieldsOfStudy?: never,
+      grade?: never,
+      notes?: never,
+      program?: never,
+      richMediaAssociations?: never,
+      school?: {
+        name: string
+      },
+      schoolName?: never,
+      isCurrent?: boolean
+    }[]
+  },
   positions?: {
-    id: string,
-    company?: never,
-    companyName?: MultiLocaleString,
-    description?: never,
-    endMonthYear?: { year: number },
-    startMonthYear?: { year: number },
-    location?: never,
-    locationName?: never,
-    richMediaAssociations?: never,
-    title?: MultiLocaleString
-  }[]
+    values: {
+      id: number,
+      company?: {
+        name: string,
+        industry: string
+      },
+      companyName?: never,
+      description?: never,
+      endMonthYear?: { year: number },
+      startMonthYear?: { year: number },
+      location?: never,
+      locationName?: never,
+      richMediaAssociations?: never,
+      title?: string,
+      isCurrent?: boolean
+    }[]
+  }
 
 }

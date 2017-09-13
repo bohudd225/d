@@ -88,8 +88,8 @@ export function getUserFromGoogleUser(googleUser: GoogleUser, scopes: Scope[]): 
 }
 
 export function getUserFromLinkedInUser(linkedInUser: LinkedInUser, scopes: Scope[]): User {
-  const linkedInEducations = linkedInUser.educations || [];
-  const linkedInJobs = linkedInUser.positions || [];
+  const linkedInEducations = linkedInUser.educations && linkedInUser.educations.values || [];
+  const linkedInJobs = linkedInUser.positions && linkedInUser.positions.values || [];
 
   return {
     base: {
@@ -108,16 +108,18 @@ export function getUserFromLinkedInUser(linkedInUser: LinkedInUser, scopes: Scop
       },
       jobs: scopes.indexOf('work_history') >= 0 ?
         linkedInJobs.map(j => ({
-          id: j.id,
-          jobTitle: j.title ? j.title.localized[Object.keys(j.title.localized)[0]] : undefined,
-          companyName: j.companyName ? j.companyName.localized[Object.keys(j.companyName.localized)[0]] : undefined
+          id: `${j.id}`,
+          jobTitle: j.title,
+          companyName: j.company ? j.company.name : undefined,
+          isCurrent: j.isCurrent
         })) : undefined,
       educations: scopes.indexOf('education_history') >= 0 ?
         linkedInEducations.map(e => ({
-          id: e.id,
-          schoolName: e.schoolName ? e.schoolName.localized[Object.keys(e.schoolName.localized)[0]] : undefined,
+          id: `${e.id}`,
+          schoolName: e.school ? e.school.name : undefined,
           startYear: e.startMonthYear ? e.startMonthYear.year : undefined,
-          endYear: e.endMonthYear ? e.endMonthYear.year : undefined
+          endYear: e.endMonthYear ? e.endMonthYear.year : undefined,
+          isCurrent: e.isCurrent
         })) : undefined
     }
   }
