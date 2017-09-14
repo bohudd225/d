@@ -195,8 +195,7 @@ declare module FbGraphApi {
     min: number;
   }
 
-  export interface FbPage {
-    id: string;
+  export type FbPage = { id: string } & Partial<{
     about: string;
     access_token: string;
     ad_campaign: FbAdCampaign;
@@ -317,7 +316,7 @@ declare module FbGraphApi {
     website: string;
     were_here_count: number;
     written_by: string;
-  }
+  }>
 
   export interface FbVoipInfo {
     has_mobile_app: boolean;

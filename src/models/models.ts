@@ -131,15 +131,15 @@ export interface GoogleUser extends HelloUser {
     url: string;
   };
   organizations: {
-    name: string;
-    department: string;
-    title: string;
+    name?: string;
+    department?: string;
+    title?: string;
     type: 'school' | 'work';
-    startDate: string;
-    endDate: string;
-    location: string;
-    description: string;
-    primary: boolean;
+    startDate?: string;
+    endDate?: string;
+    location?: string;
+    description?: string;
+    primary?: boolean;
   }[];
   placesLived: {
     value: string;
@@ -192,8 +192,8 @@ export type LinkedInUser = {
       id: number,
       activities?: never,
       degreeName?: never,
-      endMonthYear?: { year: number },
-      startMonthYear?: { year: number },
+      endDate?: { year: number, month: number },
+      startDate?: { year: number, month: number },
       fieldsOfStudy?: never,
       grade?: never,
       notes?: never,
@@ -210,13 +210,14 @@ export type LinkedInUser = {
     values: {
       id: number,
       company?: {
+        id: number,
         name: string,
         industry: string
       },
       companyName?: never,
       description?: never,
-      endMonthYear?: { year: number },
-      startMonthYear?: { year: number },
+      endDate?: { year: number, month: number },
+      startDate?: { year: number, month: number },
       location?: never,
       locationName?: never,
       richMediaAssociations?: never,
