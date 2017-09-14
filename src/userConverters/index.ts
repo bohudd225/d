@@ -6,6 +6,10 @@ import {
   Scope
 } from '../models';
 
+function returnDateIfValid(date?: string) {
+  return (date || '').length === 10 ? date : undefined;
+}
+
 export function getUserFromFacebookUser(facebookUser: FacebookUser, scopes: Scope[]): User {
   const facebookEducations = facebookUser.education || [];
   const facebookJobs = facebookUser.work || [];
@@ -33,8 +37,8 @@ export function getUserFromFacebookUser(facebookUser: FacebookUser, scopes: Scop
       jobs: scopes.indexOf('work_history') >= 0 ?
         facebookJobs.map(j => ({
           id: j.id,
-          startDate: j.start_date,
-          endDate: j.end_date,
+          startDate: returnDateIfValid(j.start_date),
+          endDate: returnDateIfValid(j.end_date),
           jobTitle: j.position ? j.position.name : undefined,
           companyName: j.employer ? j.employer.name : undefined
         })) : undefined,
@@ -60,7 +64,7 @@ export function getUserFromGoogleUser(googleUser: GoogleUser, scopes: Scope[]): 
       firstName: googleUser.first_name,
       lastName: googleUser.last_name,
       pictureUrl: googleUser.picture,
-      dob: googleUser.birthday,
+      dob: returnDateIfValid(googleUser.birthday),
       gender: googleUser.gender,
       contacts: {
         email: googleUser.email
@@ -71,8 +75,8 @@ export function getUserFromGoogleUser(googleUser: GoogleUser, scopes: Scope[]): 
       jobs: scopes.indexOf('work_history') >= 0 ?
         googleJobs.map(j => ({
           id: `${Math.random()}`,
-          startDate: j.startDate,
-          endDate: j.endDate,
+          startDate: returnDateIfValid(j.startDate),
+          endDate: returnDateIfValid(j.endDate),
           isCurrent: j.primary,
           jobTitle: j.title,
           companyName: j.name
@@ -96,7 +100,7 @@ export function getUserFromLinkedInUser(linkedInUser: LinkedInUser, scopes: Scop
       firstName: linkedInUser.firstName,
       lastName: linkedInUser.lastName,
       pictureUrl: linkedInUser.pictureUrl,
-      dob: linkedInUser.birthDate ?
+      dob: linkedInUser.birthDate && linkedInUser.birthDate.year && linkedInUser.birthDate.month && linkedInUser.birthDate.day ?
         `${linkedInUser.birthDate.year}-${linkedInUser.birthDate.month}-${linkedInUser.birthDate.day}` :
         undefined,
       gender: undefined, // not exposed by LinkedIn API
