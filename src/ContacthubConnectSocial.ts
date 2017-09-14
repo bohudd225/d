@@ -26,7 +26,13 @@ export default class ContacthubConnectSocial {
     }
   }
 
-  sendUserToContactHub = (user: User) => this.contacthub('customer', user)
+  sendUserToContactHub = (user: User) => {
+    try {
+      this.contacthub('customer', user);
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   loginWithFacebook(): Promise<User> {
     return this.socialNetworks.loginWithFacebook()
