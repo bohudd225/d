@@ -3,14 +3,15 @@ import {
   GoogleUser,
   LinkedInUser,
   User,
-  Scope
+  Scope,
+  FacebookLike
 } from '../models';
 
 function returnDateIfValid(date?: string) {
   return (date || '').length === 10 ? date : undefined;
 }
 
-export function getUserFromFacebookUser(facebookUser: FacebookUser, scopes: Scope[]): User {
+export function getUserFromFacebookUser(facebookUser: FacebookUser, likes: FacebookLike[], scopes: Scope[]): User {
   const facebookEducations = facebookUser.education || [];
   const facebookJobs = facebookUser.work || [];
 
@@ -39,6 +40,12 @@ export function getUserFromFacebookUser(facebookUser: FacebookUser, scopes: Scop
       socialProfile: {
         facebook: facebookUser.id
       },
+      likes: scopes.indexOf('likes') >= 0 ?
+        likes.map(l => ({
+          id: l.id,
+          name: l.name,
+          createdTime: l.created_time
+        })) :  undefined,
       jobs: scopes.indexOf('work_history') >= 0 ?
         facebookJobs.map(j => ({
           id: j.id,

@@ -44,10 +44,10 @@ export default class SocialNetworks {
 
     return new Promise((resolve, reject) => {
       Facebook.login({ scope: scopes.join(',') }).then(() => {
-        Promise.all([Facebook.api('me', { fields }), Facebook.api('me/likes')])
-          .then(([facebookUser, likes]: [FacebookUser, FacebookLike[]]) => {
+        Promise.all([Facebook.api('me', { fields }), Facebook.api('me/likes?limit=100')])
+          .then(([facebookUser, { data: likes }]: [FacebookUser, { data: FacebookLike[] }]) => {
             try {
-              const user = getUserFromFacebookUser(facebookUser, this.scopes);
+              const user = getUserFromFacebookUser(facebookUser, likes, this.scopes);
               resolve(user);
             } catch (e) {
               reject(e);

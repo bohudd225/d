@@ -88,7 +88,7 @@ export type FacebookLike = {
   created_time: string,
   id: string,
   name: string,
-  pictures: any[]
+  pictures?: any[]
 }
 
 // copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/gapi.plus/index.d.ts

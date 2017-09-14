@@ -1,4 +1,4 @@
-import { FacebookUser, GoogleUser, LinkedInUser, User, Scope } from '../src/models';
+import { FacebookUser, GoogleUser, LinkedInUser, User, Scope, FacebookLike } from '../src/models';
 import { getUserFromFacebookUser, getUserFromGoogleUser, getUserFromLinkedInUser } from '../src/userConverters';
 
 const internalUser: User = {
@@ -43,6 +43,11 @@ describe('converters from API user to internal "User" structure', () => {
           startYear: 2010,
           schoolName: 'Politecnico di Milano',
           schoolType: 'COLLEGE'
+        }],
+        likes: [{
+          id: '412389755573215',
+          name: 'buildo',
+          createdTime: '2015-03-12T23:13:37+0000'
         }]
       }
     };
@@ -82,16 +87,23 @@ describe('converters from API user to internal "User" structure', () => {
       }]
     };
 
+    const likes: FacebookLike[] = [{
+      id: '412389755573215',
+      name: 'buildo',
+      created_time: '2015-03-12T23:13:37+0000'
+    }]
+
     // with all scopes
-    expect(getUserFromFacebookUser(facebookUser as FacebookUser, scopes)).toEqual(user);
+    expect(getUserFromFacebookUser(facebookUser as FacebookUser, likes, scopes)).toEqual(user);
 
     // without any additional scope
-    expect(getUserFromFacebookUser(facebookUser as FacebookUser, [])).toEqual({
+    expect(getUserFromFacebookUser(facebookUser as FacebookUser, likes, [])).toEqual({
       ...user,
       base: {
         ...user.base,
         jobs: undefined,
-        educations: undefined
+        educations: undefined,
+        likes: undefined
       }
     });
   });
