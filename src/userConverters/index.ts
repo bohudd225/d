@@ -100,13 +100,16 @@ export function getUserFromLinkedInUser(linkedInUser: LinkedInUser, scopes: Scop
   const linkedInEducations = linkedInUser.educations && linkedInUser.educations.values || [];
   const linkedInJobs = linkedInUser.positions && linkedInUser.positions.values || [];
 
+  // linkedin returns the user's birthday divided per year, month and day (all as numbers) and we need YYYY-MM-DD
+  const { year, month, day }: { year?: number, month?: number, day?: number } = linkedInUser.birthDate || {};
+
   return {
     base: {
       firstName: linkedInUser.firstName,
       lastName: linkedInUser.lastName,
       pictureUrl: linkedInUser.pictureUrl,
-      dob: linkedInUser.birthDate && linkedInUser.birthDate.year && linkedInUser.birthDate.month && linkedInUser.birthDate.day ?
-        `${linkedInUser.birthDate.year}-${linkedInUser.birthDate.month}-${linkedInUser.birthDate.day}` :
+      dob: year && month && day ?
+        returnDateIfValid(`${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`):
         undefined,
       gender: undefined, // not exposed by LinkedIn API
       contacts: {
