@@ -21,12 +21,17 @@ export function getUserFromFacebookUser(facebookUser: FacebookUser, scopes: Scop
     'Primary School': 'PRIMARY_SCHOOL'
   };
 
+  // facebook formats the user's birthday as MM/DD/YYYY and we need YYYY-MM-DD
+  const facebookBirthday = returnDateIfValid(facebookUser.birthday);
+  const birthdayRegExp = /(\d\d)\/(\d\d)\/(\d\d\d\d)/;
+  const [, month = null, day = null, year = null] = birthdayRegExp.exec(facebookBirthday || '') || [];
+
   return {
     base: {
       firstName: facebookUser.first_name,
       lastName: facebookUser.last_name,
       pictureUrl: facebookUser.picture,
-      dob: facebookUser.birthday,
+      dob: year && month && day ? `${year}-${month}-${day}` : undefined,
       gender: facebookUser.gender,
       contacts: {
         email: facebookUser.email
