@@ -175,7 +175,7 @@ NOTE: `ContacthubConnectSocial` will only add the icons of the enabled social ne
 
 1. Clone this repo to a floder of your choice
 2. Run `yarn` from inside the cloned repository (if you don't have `yarn` you can install by running `npm i -g yarn`)
-3. Change the `ContacthubConnectSocial` snippet in `demo/index.ejs` as you like
+3. Copy the content of `config.example.json` in a new file named `config.json` and set your client ids and/or contacthub credentials
 
 ### How to build locally
 

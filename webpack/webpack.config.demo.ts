@@ -32,6 +32,9 @@ export default {
       CONTACTHUB_TOKEN: `"${config.CONTACTHUB_TOKEN || process.env.CONTACTHUB_TOKEN}"`,
       CONTACTHUB_WORKSPACE_ID: `"${config.CONTACTHUB_WORKSPACE_ID || process.env.CONTACTHUB_WORKSPACE_ID}"`,
       CONTACTHUB_NODE_ID: `"${config.CONTACTHUB_NODE_ID || process.env.CONTACTHUB_NODE_ID}"`,
+      FACEBOOK_CLIENT_ID: `"${config.FACEBOOK_CLIENT_ID || process.env.FACEBOOK_CLIENT_ID}"`,
+      GOOGLE_CLIENT_ID: `"${config.GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID}"`,
+      LINKEDIN_CLIENT_ID: `"${config.LINKEDIN_CLIENT_ID || process.env.LINKEDIN_CLIENT_ID}"`,
       template: `${paths.DEMO}/index.ejs`
     })
   ]
