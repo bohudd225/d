@@ -1,4 +1,4 @@
-import { FacebookUser, GoogleUser, LinkedInUser, User } from '../src/models';
+import { FacebookUser, GoogleUser, LinkedInUser, User, Scope } from '../src/models';
 import { getUserFromFacebookUser, getUserFromGoogleUser, getUserFromLinkedInUser } from '../src/userConverters';
 
 const internalUser: User = {
@@ -13,9 +13,13 @@ const internalUser: User = {
     },
     socialProfile: {
       // added in each test
-    }
+    },
+    jobs: [], // added in each test
+    educations: [] // added in each test
   }
 }
+
+const scopes: Scope[] = ['likes', 'education_history', 'work_history'];
 
 describe('converters from API user to internal "User" structure', () => {
 
@@ -26,7 +30,20 @@ describe('converters from API user to internal "User" structure', () => {
         ...internalUser.base,
         socialProfile: {
           facebook: '123456789'
-        }
+        },
+        jobs: [{
+          id: '123',
+          startDate: '2014-01-01',
+          endDate: '2020-12-31',
+          companyName: 'buildo',
+          jobTitle: 'software engineer'
+        }],
+        educations: [{
+          id: '123',
+          startYear: 2010,
+          schoolName: 'Politecnico di Milano',
+          schoolType: 'COLLEGE'
+        }]
       }
     };
 
@@ -34,13 +51,38 @@ describe('converters from API user to internal "User" structure', () => {
       id: user.base.socialProfile.facebook,
       first_name: user.base.firstName,
       last_name: user.base.lastName,
-      birthday: user.base.dob,
+      birthday: '06/04/1991',
       picture: user.base.pictureUrl,
       gender: user.base.gender,
       email: user.base.contacts.email,
+      education: [{
+        id: '123',
+        school: {
+          id: '345',
+          name: 'Politecnico di Milano'
+        },
+        type: 'College',
+        year: {
+          id: '345',
+          name: '2010'
+        }
+      }],
+      work: [{
+        employer: {
+          id: '345',
+          name: 'buildo'
+        },
+        position: {
+          id: '345',
+          name: 'software engineer'
+        },
+        start_date: '2014-01-01',
+        end_date: '2020-12-31',
+        id: '123'
+      }]
     };
 
-    expect(getUserFromFacebookUser(facebookUser as FacebookUser, [])).toEqual(user);
+    expect(getUserFromFacebookUser(facebookUser as FacebookUser, scopes)).toEqual(user);
   });
 
   it('getUserFromGoogleUser', () => {
@@ -50,7 +92,20 @@ describe('converters from API user to internal "User" structure', () => {
         ...internalUser.base,
         socialProfile: {
           google: '123456789'
-        }
+        },
+        jobs: [{
+          id: '123',
+          startDate: '2014-01-01',
+          endDate: '2020-12-31',
+          companyName: 'buildo',
+          isCurrent: true,
+          jobTitle: 'software engineer'
+        }],
+        educations: [{
+          id: '123',
+          isCurrent: false,
+          schoolName: 'Politecnico di Milano'
+        }]
       }
     };
 
@@ -61,10 +116,31 @@ describe('converters from API user to internal "User" structure', () => {
       birthday: user.base.dob,
       picture: user.base.pictureUrl,
       gender: user.base.gender,
-      email: user.base.contacts.email
+      email: user.base.contacts.email,
+      organizations: [{
+        type: 'work',
+        startDate: '2014-01-01',
+        endDate: '2020-12-31',
+        name: 'buildo',
+        primary: true,
+        title: 'software engineer'
+      }, {
+        name: 'Politecnico di Milano',
+        type: 'school',
+        primary: false
+      }]
     };
 
-    expect(getUserFromGoogleUser(googleUser as GoogleUser, [])).toEqual(user);
+    const convertedUser = getUserFromGoogleUser(googleUser as GoogleUser, scopes);
+
+    expect({
+      ...convertedUser,
+      base: {
+        ...convertedUser.base,
+        jobs: convertedUser.base.jobs.map(j => ({ ...j, id: '123' })),
+        educations: convertedUser.base.educations.map(e => ({ ...e, id: '123' }))
+      }
+    }).toEqual(user);
   });
 
   it('getUserFromLinkedInUser', () => {
@@ -72,11 +148,24 @@ describe('converters from API user to internal "User" structure', () => {
       ...internalUser,
       base: {
         ...internalUser.base,
-        dob: undefined, // "birthday" does not exist in LinkedInUser
         gender: undefined, // "gender" does not exist in LinkedInUser
         socialProfile: {
           linkedin: '123456789'
-        }
+        },
+        jobs: [{
+          id: '123',
+          companyIndustry: 'Computer Software',
+          companyName: 'buildo',
+          isCurrent: true,
+          jobTitle: 'software engineer'
+        }],
+        educations: [{
+          id: '123',
+          startYear: 2010,
+          endYear: 2015,
+          schoolName: 'Politecnico di Milano',
+          isCurrent: false
+        }]
       }
     };
 
@@ -84,13 +173,50 @@ describe('converters from API user to internal "User" structure', () => {
       id: user.base.socialProfile.linkedin,
       firstName: user.base.firstName,
       lastName: user.base.lastName,
-      // "birthday" does not exist in LinkedInUser
+      birthDate: {
+        year: 1991,
+        month: 6,
+        day: 4
+      },
       // "gender" does not exist in LinkedInUser
       pictureUrl: user.base.pictureUrl,
       emailAddress: user.base.contacts.email,
+      positions: {
+        values: [{
+          company: {
+            id: 5384763,
+            industry: 'Computer Software',
+            name: 'buildo'
+          },
+          id: 123,
+          isCurrent: true,
+          startDate: {
+            month: 9,
+            year: 2014
+          },
+          title: 'software engineer'
+        }]
+      },
+      educations: {
+        values: [{
+          id: 123,
+          startDate: {
+            month: 9,
+            year: 2010
+          },
+          endDate: {
+            month: 7,
+            year: 2015
+          },
+          school: {
+            name: 'Politecnico di Milano'
+          },
+          isCurrent: false
+        }]
+      }
     };
 
-    expect(getUserFromLinkedInUser(linkedInUser as LinkedInUser, [])).toEqual(user);
+    expect(getUserFromLinkedInUser(linkedInUser as LinkedInUser, scopes)).toEqual(user);
   });
 
 });
