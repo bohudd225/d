@@ -7,8 +7,7 @@ node_js:
 before_install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.27.5
 - export PATH="$HOME/.yarn/bin:$PATH"
-- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:8080
-  &
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:8080 &
 before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
@@ -22,4 +21,4 @@ env:
   global:
   - FACEBOOK_CLIENT_ID: 1922649294663455
   - CONTACTLAB_FBUSER_USER: harry_fllogxr_valtchanovsen@tfbnw.net
-  - secure: KfYDA6zEwr1VU4rYGqXmn6HCmW1J9oxfEy+9GFKTwhc5mW7GbT/VX88gUonoH6rbyhgq9fWhuj+a0Ltyw6Rz0ESGpQ7/uQ1uFiNN9xx3HDgTaWa9NulOTgqav/3/DFGoXoVkqEoa8Ct481VVcS42d4yZ4+2i54pPaCN2i+Ntf+piu94g43JJGGIIwJr074Gbf5yiCL677Qu5Ij8r6N2zL9jJZ7pAguyPehUtm7P1p+MooTw3cvbo9/2EjeG0VYaWireVobjRMjRDsnfxmUgZpT6FdJECzWNHWp8pc4as2+sIhaQBeTUoHVnCcOP541q7G6khlHonr8L5qv7DczvG84Mlza6Cdol+QwAZSNSotJkGp9bW6lwLreDlVoSas4JVrnv33xj9G6skbtTeX0imaTvza3XcARyxypPtbeXM5ZAY91Mn7TGjoE+0GXC5Z0BEQz0LXFZVsSQEpddj0i4YxeY/v3TQbZBRu9drqqf7IRBopjbQ9UvQ+8eXpRpK4nV/j9yqAPacDQFRxESKwRUpPfOAUtd9yCL12Kj4gmycIyE/DF7Q6cV+ZhbHMf9AwCg7pAXuOsIdQIHrpaQ7gXYWaa68Qt6IwHsfc44xjrXgD2JDTgb5UVE+jhKjq0AdSluQb74ih2HqleoVQjDHQyz/omFX+a7P+9b4Jz3U/lMMvFE=
+  - secure: DHZWkLhnzEFX4NNqN7hxFnfIz8VJWZOuj6vEbuVj7LoHJEtlWJQMkSWny6gmI1JqVD7BjJBypumtjWJt98tp77+4fX8r4FtYJ0X+kAQc3aVgq7Arx7BlcpbDY+YGdighyBIXlHOajv5ACwUZhB142WSVbXl5pEsEw11DjjdYMUjLO1Xc6LG4teeKanpDYo1n8WMaqjaZgiJNiivORH6h9x/bHEo395L4gHDuNyCLa9QbWWe2VIdX/vTncGzD6UVSrfnAhlpmV2pka1QSxLGDZPEORDhalpFEDxTXrFOO4bG4MXrzZzM2jFVWH9jfvEUNJN65ya7SMXh9t2ldvKFxnF0qGBsN5x6o0qp8JKQhG3J0DHqhf+hKoUGkMLn17+bI8tFI2N+zfUKWesMFvfUlBuMVXdt2ryL6E5M9vtYubFvbSYxUjIAH8fLC4sL4XyeLsGaBg9ONSYuIfmf+fmXHv9pXIPaNvHLcYaqvQHqWIkZzrtgxWVc5ohuevNDW1zrp8qVRICCnfFjTJGTJ0NUbF8AnaXYf4z/SzgxTWFUN30MurFWE2ajubAQXVV16p4zOXv9kLqJJ36eUVuQtYLaVK4OpKKk4J54uIwexTOaFxv+AAn1Tz6IwRArbol/x4f6TByBhaz9JhuMB5FaaDpUVnr40XnCqIXPU2ir1q9Q0Axg=
