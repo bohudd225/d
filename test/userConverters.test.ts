@@ -82,7 +82,18 @@ describe('converters from API user to internal "User" structure', () => {
       }]
     };
 
+    // with all scopes
     expect(getUserFromFacebookUser(facebookUser as FacebookUser, scopes)).toEqual(user);
+
+    // without any additional scope
+    expect(getUserFromFacebookUser(facebookUser as FacebookUser, [])).toEqual({
+      ...user,
+      base: {
+        ...user.base,
+        jobs: undefined,
+        educations: undefined
+      }
+    });
   });
 
   it('getUserFromGoogleUser', () => {
@@ -133,6 +144,7 @@ describe('converters from API user to internal "User" structure', () => {
 
     const convertedUser = getUserFromGoogleUser(googleUser as GoogleUser, scopes);
 
+    // with all scopes
     expect({
       ...convertedUser,
       base: {
@@ -141,6 +153,16 @@ describe('converters from API user to internal "User" structure', () => {
         educations: convertedUser.base.educations.map(e => ({ ...e, id: '123' }))
       }
     }).toEqual(user);
+
+    // without any additional scope
+    expect(getUserFromGoogleUser(googleUser as GoogleUser, [])).toEqual({
+      ...user,
+      base: {
+        ...user.base,
+        jobs: undefined,
+        educations: undefined
+      }
+    });
   });
 
   it('getUserFromLinkedInUser', () => {
@@ -216,7 +238,18 @@ describe('converters from API user to internal "User" structure', () => {
       }
     };
 
+    // with all scopes
     expect(getUserFromLinkedInUser(linkedInUser as LinkedInUser, scopes)).toEqual(user);
+
+    // without any additional scope
+    expect(getUserFromLinkedInUser(linkedInUser as LinkedInUser, [])).toEqual({
+      ...user,
+      base: {
+        ...user.base,
+        jobs: undefined,
+        educations: undefined
+      }
+    });
   });
 
 });
