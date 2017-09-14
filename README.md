@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/contactlab/contacthub-connect-social.svg?branch=master)](https://travis-ci.org/contactlab/contacthub-connect-social)
+
 # Contacthub Connect Social
 
 `Contacthub Connect Social` is a drop-in library for web clients to automatically:
