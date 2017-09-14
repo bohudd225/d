@@ -12,9 +12,9 @@ Insert this snippet in your website (preferably in the `<HEAD>` section):
 <script src='...'></script>
 <script>
   var connectSocial = new window.ContacthubConnectSocial({
-    clientIds: {/* see below */},
+    socialNetworks: {/* see below */},
     contacthub: {/* see below */},
-    form: {/* see below */}
+    autofillOptions: {/* see below */}
   });
 </script>
 ```
@@ -50,16 +50,18 @@ We recommend that you load libraries from the CDN via HTTPS, even if your own we
 The first script of the snippet above will add a `ContacthubConnectSocial` class to the global `window` object of your page.
 To enable `ContacthubConnectSocial`, you have to create an instance of it with the right configuration which consists of:
 
-#### `clientIds`
+#### `socialNetworks.clientIds`
 
 `ContacthubConnectSocial`, to let the users login with their favourite social networks, needs the client ids of your Facebook, Google and LinkedIn apps:
 
 ```js
 var connectSocial = new window.ContacthubConnectSocial({
-  clientIds: {
-    facebook: 'your_facebook_app_client_id',
-    google: 'your_google_app_client_id',
-    linkedin: 'your_linkedin_app_client_id',
+  socialNetworks: {
+    clientIds: {
+      facebook: 'your_facebook_app_client_id',
+      google: 'your_google_app_client_id',
+      linkedin: 'your_linkedin_app_client_id',
+    }
   },
   ...
 });
@@ -69,16 +71,39 @@ If you don't want to enable `ContacthubConnectSocial` for every supported social
 
 ```js
 var connectSocial = new window.ContacthubConnectSocial({
-  clientIds: {
-    facebook: 'your_facebook_app_client_id' // in this case we're supporting only Facebook login
-  },
+  socialNetworks: {
+    clientIds: {
+      facebook: 'your_facebook_app_client_id' // in this case we're supporting only Facebook login
+    }
+  }
   ...
 });
 ```
 
+#### `socialNetworks.scopes`
+
+By default, `ContacthubConnectSocial` logs in using the following additional scopes:
+- `likes` (only for Facebook)
+- `work_history`
+- `education_history`
+
+If you don't need any of these, you can overwrite the option `scopes` and avoid asking the user permission for them:
+
+```js
+var connectSocial = new window.ContacthubConnectSocial({
+  socialNetworks: {
+    clientIds: { ... }
+    scopes: ['education_history'] // "work_history" and "likes" are not collected
+  }
+  ...
+});
+```
+
+NOTE: the basic profile data (name, email, birth date, ...) is always collected
+
 #### `contacthub`
 
-`ContacthubConnectSocial` uses the official [`contacthub-sdk-browser`](https://github.com/contactlab/contacthub-sdk-browser)`to post the collected user data to the Contacthub API.
+`ContacthubConnectSocial` uses the official [`contacthub-sdk-browser`](https://github.com/contactlab/contacthub-sdk-browser) to post the collected user data to the Contacthub API.
 
 To avoid downloading the `contacthub-sdk-browser` JS files multiple times, as your page will probably already have one, `ContacthubConnectSocial` requires you to directly pass the instance of the sdk during the initialization:
 
@@ -136,7 +161,7 @@ var connectSocial = new window.ContacthubConnectSocial({
     icons: {
       container: '#icons-container'
     },
-    ...
+    fields: { ... }
   }
   ...
 });
@@ -149,7 +174,8 @@ NOTE: `ContacthubConnectSocial` will only add the icons of the enabled social ne
 ### Getting started
 
 1. Clone this repo to a floder of your choice
-2. run `yarn` from inside the cloned repository (if you don't have `yarn` you can install by running `npm i -g yarn`)
+2. Run `yarn` from inside the cloned repository (if you don't have `yarn` you can install by running `npm i -g yarn`)
+3. Change the `ContacthubConnectSocial` snippet in `demo/index.ejs` as you like
 
 ### How to build locally
 
