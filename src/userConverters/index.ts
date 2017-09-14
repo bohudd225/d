@@ -53,7 +53,7 @@ export function getUserFromFacebookUser(facebookUser: FacebookUser, scopes: Scop
           schoolName: e.school ? e.school.name : undefined,
           schoolType: e.type ? facebookEducationTypeToJobType[e.type] : undefined,
           schoolConcentration: e.concentration ? e.concentration[0].name : undefined,
-          startYear: e.year && parseInt(e.year.name) ? parseInt(e.year.name) : undefined
+          startYear: e.year && parseInt(e.year.name || '') ? parseInt(e.year.name || '') : undefined
         })) : undefined
     }
   }
@@ -122,6 +122,7 @@ export function getUserFromLinkedInUser(linkedInUser: LinkedInUser, scopes: Scop
         linkedInJobs.map(j => ({
           id: `${j.id}`,
           jobTitle: j.title,
+          companyIndustry: j.company ? j.company.industry : undefined,
           companyName: j.company ? j.company.name : undefined,
           isCurrent: j.isCurrent
         })) : undefined,
@@ -129,8 +130,8 @@ export function getUserFromLinkedInUser(linkedInUser: LinkedInUser, scopes: Scop
         linkedInEducations.map(e => ({
           id: `${e.id}`,
           schoolName: e.school ? e.school.name : undefined,
-          startYear: e.startMonthYear ? e.startMonthYear.year : undefined,
-          endYear: e.endMonthYear ? e.endMonthYear.year : undefined,
+          startYear: e.startDate ? e.startDate.year : undefined,
+          endYear: e.endDate ? e.endDate.year : undefined,
           isCurrent: e.isCurrent
         })) : undefined
     }
