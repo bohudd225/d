@@ -40,7 +40,7 @@ export function getUserFromFacebookUser(facebookUser: FacebookUser, scopes: Scop
         })) : undefined,
       educations: scopes.indexOf('education_history') >= 0 ?
         facebookEducations.map(e => ({
-          id: `${Math.random()}`,
+          id: e.id,
           schoolName: e.school ? e.school.name : undefined,
           schoolType: e.type ? facebookEducationTypeToJobType[e.type] : undefined,
           schoolConcentration: e.concentration ? e.concentration[0].name : undefined,
