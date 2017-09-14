@@ -40,13 +40,13 @@ export function getUserFromFacebookUser(facebookUser: FacebookUser, likes: Faceb
       socialProfile: {
         facebook: facebookUser.id
       },
-      likes: scopes.indexOf('likes') >= 0 ?
+      likes: scopes.indexOf('likes') >= 0 && likes.length > 0 ?
         likes.map(l => ({
           id: l.id,
           name: l.name,
           createdTime: l.created_time
         })) :  undefined,
-      jobs: scopes.indexOf('work_history') >= 0 ?
+      jobs: scopes.indexOf('work_history') >= 0 && facebookJobs.length > 0 ?
         facebookJobs.map(j => ({
           id: j.id,
           startDate: returnDateIfValid(j.start_date),
@@ -54,7 +54,7 @@ export function getUserFromFacebookUser(facebookUser: FacebookUser, likes: Faceb
           jobTitle: j.position ? j.position.name : undefined,
           companyName: j.employer ? j.employer.name : undefined
         })) : undefined,
-      educations: scopes.indexOf('education_history') >= 0 ?
+      educations: scopes.indexOf('education_history') >= 0 && facebookEducations.length > 0 ?
         facebookEducations.map(e => ({
           id: e.id,
           schoolName: e.school ? e.school.name : undefined,
@@ -84,7 +84,7 @@ export function getUserFromGoogleUser(googleUser: GoogleUser, scopes: Scope[]): 
       socialProfile: {
         google: googleUser.id
       },
-      jobs: scopes.indexOf('work_history') >= 0 ?
+      jobs: scopes.indexOf('work_history') >= 0 && googleJobs.length > 0 ?
         googleJobs.map(j => ({
           id: `${Math.random()}`,
           startDate: returnDateIfValid(j.startDate),
@@ -93,7 +93,7 @@ export function getUserFromGoogleUser(googleUser: GoogleUser, scopes: Scope[]): 
           jobTitle: j.title,
           companyName: j.name
         })) : undefined,
-      educations: scopes.indexOf('education_history') >= 0 ?
+      educations: scopes.indexOf('education_history') >= 0 && googleEducations.length > 0 ?
         googleEducations.map(e => ({
           id: `${Math.random()}`,
           schoolName: e.name,
@@ -125,7 +125,7 @@ export function getUserFromLinkedInUser(linkedInUser: LinkedInUser, scopes: Scop
       socialProfile: {
         linkedin: linkedInUser.id
       },
-      jobs: scopes.indexOf('work_history') >= 0 ?
+      jobs: scopes.indexOf('work_history') >= 0 && linkedInJobs.length > 0 ?
         linkedInJobs.map(j => ({
           id: `${j.id}`,
           jobTitle: j.title,
@@ -133,7 +133,7 @@ export function getUserFromLinkedInUser(linkedInUser: LinkedInUser, scopes: Scop
           companyName: j.company ? j.company.name : undefined,
           isCurrent: j.isCurrent
         })) : undefined,
-      educations: scopes.indexOf('education_history') >= 0 ?
+      educations: scopes.indexOf('education_history') >= 0 && linkedInEducations.length > 0 ?
         linkedInEducations.map(e => ({
           id: `${e.id}`,
           schoolName: e.school ? e.school.name : undefined,
