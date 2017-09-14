@@ -1,19 +1,35 @@
 import { Promise } from 'es6-promise';
 import hello from '../vendor/hello';
 import injectLinkedInSDK from '../vendor/injectLinkedInSDK';
-import { SocialNetworksClientIds, FacebookFields, FacebookUser, GoogleUser, LinkedInUser, User } from '../models';
+import { Options, FacebookLike, Scope, FacebookScope, GoogleScope, SocialNetworksClientIds, FacebookFields, FacebookUser, GoogleUser, LinkedInUser, User } from '../models';
 import { getUserFromFacebookUser, getUserFromGoogleUser, getUserFromLinkedInUser } from '../userConverters';
 
 export default class SocialNetworks {
 
   clientIds: SocialNetworksClientIds
+  scopes: Scope[]
 
-  constructor(clientIds: SocialNetworksClientIds) {
+  constructor(socialNetworksOptions: Options['socialNetworks']) {
+    const { clientIds, scopes } = socialNetworksOptions;
+
     if (clientIds.linkedin) {
       injectLinkedInSDK(clientIds.linkedin);
     }
+
     hello.init({ ...clientIds as { [k: string]: string } }); // "..." are needed because `hello` modifies the given options
+
     this.clientIds = clientIds;
+    this.scopes = scopes || ['likes', 'education_history', 'work_history'];
+  }
+
+  getFacebookScopesFromScopes(scopes: Scope[]): FacebookScope[] {
+    const convertionMap: { [k in Scope]: FacebookScope } = {
+      likes: 'user_likes',
+      education_history: 'user_education_history',
+      work_history: 'user_work_history'
+    }
+
+    return scopes.map(s => convertionMap[s]);
   }
 
   loginWithFacebook(): Promise<User> {
@@ -22,19 +38,22 @@ export default class SocialNetworks {
     }
 
     const Facebook = hello('facebook');
-    const fields: FacebookFields[] = ['first_name', 'last_name', 'gender', 'birthday', 'link', 'email'];
+
+    const fields: FacebookFields[] = ['first_name', 'last_name', 'gender', 'birthday', 'link', 'email', 'education', 'work'];
+    const scopes: FacebookScope[] = ['email', 'user_birthday', ...this.getFacebookScopesFromScopes(this.scopes)];
 
     return new Promise((resolve, reject) => {
-      Facebook.login({ scope: 'email' }).then(() => {
-        Facebook.api('me', { fields }).then((facebookUser: FacebookUser) => {
-          try {
-            const user = getUserFromFacebookUser(facebookUser);
-            resolve(user);
-          } catch (e) {
-            reject(e);
-          }
+      Facebook.login({ scope: scopes.join(',') }).then(() => {
+        Promise.all([Facebook.api('me', { fields }), Facebook.api('me/likes?limit=100')])
+          .then(([facebookUser, { data: likes }]: [FacebookUser, { data: FacebookLike[] }]) => {
+            try {
+              const user = getUserFromFacebookUser(facebookUser, likes, this.scopes);
+              resolve(user);
+            } catch (e) {
+              reject(e);
+            }
+          }, reject);
         }, reject);
-      }, reject);
     });
   }
 
@@ -45,11 +64,13 @@ export default class SocialNetworks {
 
     const Google = hello('google');
 
+    const scopes: GoogleScope[] = ['email', 'birthday'];
+
     return new Promise((resolve, reject) => {
-      Google.login({ scope: 'email' }).then(() => {
+      Google.login({ scope: scopes.join(',') }).then(() => {
         Google.api('me').then((googleUser: GoogleUser) => {
           try {
-            const user = getUserFromGoogleUser(googleUser);
+            const user = getUserFromGoogleUser(googleUser, this.scopes);
             resolve(user);
           } catch (e) {
             reject(e);
@@ -66,15 +87,20 @@ export default class SocialNetworks {
 
     const LinkedIn = (window as any).IN;
 
+    /* LinkedIn scopes are different:
+      - they are set only in the app setting
+      - LinkedIn has no additional scopes apart from "profile" and "email" (which are both required by ContacthubSocialConnect)
+    */
+
     return new Promise((resolve) => {
       const onLogin = () => {
         LinkedIn.API
           .Raw()
-          .url('/people/~:(picture-url,first-name,last-name,id,formatted-name,email-address,public-profile-url)')
+          .url('/people/~:(picture-url,first-name,last-name,id,formatted-name,email-address,public-profile-url,educations,positions,date-of-birth)')
           .method('GET')
           .body()
           .result((linkedInUser: LinkedInUser) => {
-            resolve(getUserFromLinkedInUser(linkedInUser));
+            resolve(getUserFromLinkedInUser(linkedInUser, this.scopes));
           });
       }
 

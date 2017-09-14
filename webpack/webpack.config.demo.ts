@@ -1,7 +1,9 @@
+import * as fs from 'fs';
 import * as webpack from 'webpack';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpackBase, { paths } from './webpack.base';
-const config = require('../config.json');
+
+const config = JSON.parse(fs.existsSync(`${__dirname}/../config.json`) ? fs.readFileSync(`${__dirname}/../config.json`, 'utf8') : '{}');
 
 export default {
 

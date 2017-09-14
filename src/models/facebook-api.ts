@@ -89,15 +89,15 @@ declare module FbGraphApi {
 
   export interface FbWorkExperience {
     id: string;
-    description: string;
-    employer: FbPage;
-    end_date: string;
-    from: FbUser;
-    location: FbPage;
-    position: FbPage;
-    projects: FbProjectExperience[];
-    start_date: string;
-    with: FbUser[];
+    description?: string;
+    employer?: FbPage;
+    end_date?: string;
+    from?: FbUser;
+    location?: FbPage;
+    position?: FbPage;
+    projects?: FbProjectExperience[];
+    start_date?: string;
+    with?: FbUser[];
   }
 
   export interface FbProjectExperience {
@@ -158,13 +158,13 @@ declare module FbGraphApi {
 
   export interface FbEducationExperience {
     id: string;
-    classes: FbExperience[];
-    concentration: FbPage[];
-    degree: FbPage;
-    school: FbPage;
-    type: string;
-    with: FbUser[];
-    year: FbPage;
+    classes?: FbExperience[];
+    concentration?: FbPage[];
+    degree?: FbPage;
+    school?: FbPage;
+    type?: string;
+    with?: FbUser[];
+    year?: FbPage;
   }
 
   export interface FbUserDevice {
@@ -195,8 +195,7 @@ declare module FbGraphApi {
     min: number;
   }
 
-  export interface FbPage {
-    id: string;
+  export type FbPage = { id: string } & Partial<{
     about: string;
     access_token: string;
     ad_campaign: FbAdCampaign;
@@ -317,7 +316,7 @@ declare module FbGraphApi {
     website: string;
     were_here_count: number;
     written_by: string;
-  }
+  }>
 
   export interface FbVoipInfo {
     has_mobile_app: boolean;
