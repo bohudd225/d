@@ -9,6 +9,8 @@ describe('webdriver.io page', () => {
       throw new Error('Required env variables not found: CONTACTLAB_FBUSER_USER, CONTACTLAB_FBUSER_PASS');
     }
 
+    console.log('password', pass);
+
     browser.url('/');
     browser.click('.ui.button');
     const mainWindow = browser.windowHandle().value;
@@ -20,6 +22,13 @@ describe('webdriver.io page', () => {
     browser.window(mainWindow);
 
     browser.pause(5000);
+
+    if (browser.windowHandles().value.length !== 1) {
+      throw new Error('The popup is still open!');
+    }
+
+    console.log(JSON.stringify(browser.log('browser'), null, 2))
+
     browser.element('#firstName').getValue().should.equal('Harry');
     browser.element('#lastName').getValue().should.equal('Valtchanovsen');
     browser.element('#email').getValue().should.equal(user);
