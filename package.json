@@ -20,8 +20,8 @@
     "test-dev": "jest --watch",
     "e2e": "wdio wdio.conf.js",
     "build": "rm -rf dist && tsc && webpack --config webpack/webpack.config.build.ts",
-    "start": "webpack-dev-server --config webpack/webpack.config.demo.ts",
-    "build-demo": "webpack --config webpack/webpack.config.demo.ts",
+    "start": "NODE_ENV=start webpack-dev-server --config webpack/webpack.config.demo.ts",
+    "build-demo": "NODE_ENV=build-demo webpack --config webpack/webpack.config.demo.ts",
     "typecheck": "tsc --noEmit",
     "preversion": "npm run test",
     "prepublish": "npm run build"

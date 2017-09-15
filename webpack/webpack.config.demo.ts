@@ -9,6 +9,8 @@ function getConfigVariable(value?: string): string {
   return value ? `"${value}"` : 'undefined';
 }
 
+const isBuildDemo = process.env.NODE_ENV === 'build-demo';
+
 export default {
 
   ...webpackBase,
@@ -33,10 +35,12 @@ export default {
       sourceMap: true
     }),
     new HtmlWebpackPlugin({
-      CONTACTHUB_TOKEN: getConfigVariable(config.CONTACTHUB_TOKEN || process.env.CONTACTHUB_TOKEN),
-      CONTACTHUB_WORKSPACE_ID: getConfigVariable(config.CONTACTHUB_WORKSPACE_ID || process.env.CONTACTHUB_WORKSPACE_ID),
-      CONTACTHUB_NODE_ID: getConfigVariable(config.CONTACTHUB_NODE_ID || process.env.CONTACTHUB_NODE_ID),
-      FACEBOOK_CLIENT_ID: getConfigVariable(config.FACEBOOK_CLIENT_ID || process.env.FACEBOOK_CLIENT_ID),
+      CONTACTHUB_TOKEN: !isBuildDemo ? getConfigVariable(config.CONTACTHUB_TOKEN || process.env.CONTACTHUB_TOKEN) : 'undefined',
+      CONTACTHUB_WORKSPACE_ID: !isBuildDemo ? getConfigVariable(config.CONTACTHUB_WORKSPACE_ID || process.env.CONTACTHUB_WORKSPACE_ID) : 'undefined',
+      CONTACTHUB_NODE_ID: !isBuildDemo ? getConfigVariable(config.CONTACTHUB_NODE_ID || process.env.CONTACTHUB_NODE_ID) : 'undefined',
+      FACEBOOK_CLIENT_ID: !isBuildDemo ?
+        getConfigVariable(config.FACEBOOK_CLIENT_ID || process.env.FACEBOOK_CLIENT_ID) :
+        getConfigVariable(config.FACEBOOK_DEMO_CLIENT_ID || process.env.FACEBOOK_DEMO_CLIENT_ID),
       GOOGLE_CLIENT_ID: getConfigVariable(config.GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID),
       LINKEDIN_CLIENT_ID: getConfigVariable(config.LINKEDIN_CLIENT_ID || process.env.LINKEDIN_CLIENT_ID),
       template: `${paths.DEMO}/index.ejs`
