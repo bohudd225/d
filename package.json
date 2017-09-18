@@ -19,12 +19,11 @@
     "test": "jest",
     "test-dev": "jest --watch",
     "e2e": "wdio wdio.conf.js",
-    "build": "rm -rf dist && tsc && webpack --config webpack/webpack.config.build.ts",
+    "build": "rm -rf dist && tsc && webpack --config webpack/webpack.config.build.ts && zip -j dist/contacthub-connect-social-$(git tag | tail -n 1).zip dist/*js",
     "start": "NODE_ENV=start webpack-dev-server --config webpack/webpack.config.demo.ts",
     "build-demo": "NODE_ENV=build-demo webpack --config webpack/webpack.config.demo.ts",
     "typecheck": "tsc --noEmit",
-    "preversion": "npm run test",
-    "prepublish": "npm run build"
+    "preversion": "npm run test && npm run e2e"
   },
   "jest": {
     "globals": {
@@ -57,6 +56,7 @@
     "ts-loader": "^2.3.3",
     "ts-node": "^3.3.0",
     "typescript": "^2.4.2",
+    "unminified-webpack-plugin": "^1.2.0",
     "wdio": "^1.0.0",
     "wdio-chromedriver-service": "^0.1.0",
     "wdio-mocha-framework": "^0.5.11",

@@ -19,7 +19,7 @@ export default {
     library: 'ContacthubConnectSocial',
     libraryTarget: 'var' as 'var',
     path: paths.DIST,
-    filename: 'app.[hash].js'
+    filename: 'contacthub-connect-social.min.js'
   },
 
   module: {

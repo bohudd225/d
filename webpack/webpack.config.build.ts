@@ -1,5 +1,5 @@
 import * as webpack from 'webpack';
-import * as CompressionPlugin from 'compression-webpack-plugin';
+import * as UnminifiedPlugin from 'unminified-webpack-plugin';
 import webpackBase from './webpack.base';
 
 const config: webpack.Configuration = {
@@ -19,9 +19,7 @@ const config: webpack.Configuration = {
       comments: false,
       sourceMap: true
     }),
-    new CompressionPlugin({
-      regExp: /\.js$/
-    }),
+    new UnminifiedPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ]
 
