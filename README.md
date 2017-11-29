@@ -11,7 +11,7 @@
 Insert this snippet in your website (preferably in the `<HEAD>` section):
 
 ```html
-<script src='...'></script>
+<script async src="https://assets.contactlab.it/contacthub/connect-social/latest/contacthub-connect-social.min.js"></script>
 <script>
   var connectSocial = new window.ContacthubConnectSocial({
     socialNetworks: {/* see below */},
@@ -27,22 +27,22 @@ To load a hosted library, copy and paste the HTML snippet for that library (show
 
 #### Latest version minified
 ```html
-<script src="..."></script>
+<script async src="https://assets.contactlab.it/contacthub/connect-social/latest/contacthub-connect-social.min.js"></script>
 ```
 
 #### Latest version uncompressed
 ```html
-<script src="..."></script>
+<script async src="https://assets.contactlab.it/contacthub/connect-social/latest/contacthub-connect-social.js"></script>
 ```
 
 #### Specific version minified
 ```html
-<script src="..."></script>
+<script async src="https://assets.contactlab.it/contacthub/connect-social/{version}/contacthub-connect-social.min.js"></script>
 ```
 
 #### Specific version uncompressed
 ```html
-<script src="..."></script>
+<script async src="https://assets.contactlab.it/contacthub/connect-social/{version}/ontacthub-connect-social.js"></script>
 ```
 
 We recommend that you load libraries from the CDN via HTTPS, even if your own website only uses HTTP.
